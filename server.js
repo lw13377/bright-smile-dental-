@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
@@ -126,6 +127,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
+    store: new pgSession({
+        pool,
+        createTableIfMissing: true
+    }),
     secret: process.env.SESSION_SECRET || 'brightsmile-secret-2024',
     resave: false,
     saveUninitialized: false,
