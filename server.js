@@ -164,8 +164,9 @@ async function initDatabase() {
 let initDone = false;
 async function ensureInit() {
     if (initDone) return;
-    await Promise.all([initDatabase(), initEmailTransporter()]);
+    await initDatabase();
     initDone = true;
+    initEmailTransporter().catch(err => console.log('Email init background error:', err.message));
 }
 
 app.use(async (req, res, next) => {
