@@ -11,9 +11,13 @@ const nodemailer = require('nodemailer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// PostgreSQL connection pool (Supabase)
+// PostgreSQL connection pool (Supabase/Vercel)
+const connectionString = process.env.POSTGRES_URL ||
+                         process.env.POSTGRES_URL_NON_POOLING ||
+                         process.env.DATABASE_URL;
+
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString,
     ssl: { rejectUnauthorized: false }
 });
 
