@@ -183,7 +183,8 @@ const CLINIC_CONFIG = { openTime: 9, closeTime: 17, slotDuration: 30, workDays: 
 
 function generateTimeSlots(date) {
     const slots = [];
-    const dayOfWeek = new Date(date).getDay();
+    const [y, m, d] = date.split('-').map(Number);
+    const dayOfWeek = new Date(y, m - 1, d).getDay();
     if (!CLINIC_CONFIG.workDays.includes(dayOfWeek)) return slots;
     for (let hour = CLINIC_CONFIG.openTime; hour < CLINIC_CONFIG.closeTime; hour++) {
         for (let min = 0; min < 60; min += CLINIC_CONFIG.slotDuration) {
@@ -199,10 +200,8 @@ app.get('/api/slots/:date', async (req, res) => {
     try {
         const { date } = req.params;
         if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return res.status(400).json({ error: 'Invalid date format' });
-        const selectedDate = new Date(date);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        if (selectedDate < today) return res.status(400).json({ error: 'Cannot book in the past' });
+        const todayStr = new Date().toISOString().split('T')[0];
+        if (date < todayStr) return res.status(400).json({ error: 'Cannot book in the past' });
         const allSlots = generateTimeSlots(date);
         const result = await pool.query(
             "SELECT time FROM appointments WHERE date = $1 AND status != 'cancelled'", [date]
