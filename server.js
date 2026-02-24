@@ -154,6 +154,16 @@ async function initDatabase() {
     console.log('Database initialized');
 }
 
+// Debug route (before init middleware)
+app.get('/api/debug-env', (req, res) => {
+    res.json({
+        connectionString_set: !!connectionString,
+        all_db_keys: Object.keys(process.env).filter(k =>
+            k.includes('POSTGRES') || k.includes('DATABASE') || k.includes('SUPA')
+        )
+    });
+});
+
 // Lazy init — runs once on first request
 let initDone = false;
 async function ensureInit() {
@@ -186,21 +196,6 @@ function generateTimeSlots(date) {
     }
     return slots;
 }
-
-// ─── Diagnostic (temporary) ───────────────────────────────────────────────
-app.get('/api/debug-env', (req, res) => {
-    res.json({
-        has_POSTGRES_URL: !!process.env.POSTGRES_URL,
-        has_POSTGRES_URL_NON_POOLING: !!process.env.POSTGRES_URL_NON_POOLING,
-        has_DATABASE_URL: !!process.env.DATABASE_URL,
-        has_SUPABASE_DB_URL: !!process.env.SUPABASE_DB_URL,
-        has_SUPABASE_URL: !!process.env.SUPABASE_URL,
-        connectionString_set: !!connectionString,
-        all_keys: Object.keys(process.env).filter(k =>
-            k.includes('POSTGRES') || k.includes('DATABASE') || k.includes('SUPA')
-        )
-    });
-});
 
 // ─── API Routes ────────────────────────────────────────────────────────────
 
