@@ -187,6 +187,21 @@ function generateTimeSlots(date) {
     return slots;
 }
 
+// ─── Diagnostic (temporary) ───────────────────────────────────────────────
+app.get('/api/debug-env', (req, res) => {
+    res.json({
+        has_POSTGRES_URL: !!process.env.POSTGRES_URL,
+        has_POSTGRES_URL_NON_POOLING: !!process.env.POSTGRES_URL_NON_POOLING,
+        has_DATABASE_URL: !!process.env.DATABASE_URL,
+        has_SUPABASE_DB_URL: !!process.env.SUPABASE_DB_URL,
+        has_SUPABASE_URL: !!process.env.SUPABASE_URL,
+        connectionString_set: !!connectionString,
+        all_keys: Object.keys(process.env).filter(k =>
+            k.includes('POSTGRES') || k.includes('DATABASE') || k.includes('SUPA')
+        )
+    });
+});
+
 // ─── API Routes ────────────────────────────────────────────────────────────
 
 app.get('/api/slots/:date', async (req, res) => {
