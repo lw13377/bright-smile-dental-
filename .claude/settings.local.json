@@ -6,7 +6,17 @@
       "Bash(powershell:*)",
       "Bash(npm install:*)",
       "Bash(npm start)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git remote add origin https://github.com/lw13377/bright-smile-dental.git 2>&1)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git remote set-url origin https://lw13377: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@github.com/lw13377/bright-smile-dental-.git && git push -u origin master 2>&1)",
+      "Bash(curl:*)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git add server.js && git commit -m \"Fix: use Vercel Postgres env variable names\" && git remote set-url origin https://lw13377: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@github.com/lw13377/bright-smile-dental-.git && git push && git remote set-url origin https://github.com/lw13377/bright-smile-dental-.git 2>&1)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git add server.js && git commit -m \"Fix: Vercel serverless compatibility - lazy init + export app\" && git remote set-url origin https://lw13377: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@github.com/lw13377/bright-smile-dental-.git && git push && git remote set-url origin https://github.com/lw13377/bright-smile-dental-.git 2>&1)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git add server.js && git commit -m \"Add temp debug endpoint\" && git remote set-url origin https://lw13377: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@github.com/lw13377/bright-smile-dental-.git && git push && git remote set-url origin https://github.com/lw13377/bright-smile-dental-.git 2>&1)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git add server.js && git commit -m \"Fix: move debug route before init middleware\" && git remote set-url origin https://lw13377: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@github.com/lw13377/bright-smile-dental-.git && git push && git remote set-url origin https://github.com/lw13377/bright-smile-dental-.git 2>&1)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git add server.js && git commit -m \"Remove debug endpoint\" && git remote set-url origin https://lw13377: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@github.com/lw13377/bright-smile-dental-.git && git push && git remote set-url origin https://github.com/lw13377/bright-smile-dental-.git 2>&1)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git add server.js && git commit -m \"Fix: persist admin sessions in PostgreSQL\" && git remote set-url origin https://lw13377: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@github.com/lw13377/bright-smile-dental-.git && git push && git remote set-url origin https://github.com/lw13377/bright-smile-dental-.git 2>&1)",
+      "Bash(cd /c/Users/eabra/WebstormProjects/child-care && git add . && git commit -m \"Fix: JWT auth for admin panel \\(works on Vercel serverless\\)\" && git remote set-url origin https://lw13377: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@github.com/lw13377/bright-smile-dental-.git && git push && git remote set-url origin https://github.com/lw13377/bright-smile-dental-.git 2>&1)"
     ]
   }
 }

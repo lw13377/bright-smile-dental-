@@ -2,11 +2,12 @@ require('dotenv').config();
 
 const express = require('express');
 const { Pool } = require('pg');
-const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
+const jwt = require('jsonwebtoken');
 const path = require('path');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+
+const JWT_SECRET = process.env.SESSION_SECRET || 'brightsmile-secret-2024';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -126,19 +127,6 @@ async function sendConfirmationEmail(appointment) {
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-    store: new pgSession({
-        pool,
-        createTableIfMissing: true
-    }),
-    secret: process.env.SESSION_SECRET || 'brightsmile-secret-2024',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000
-    }
-}));
 
 // Initialize database
 async function initDatabase() {
@@ -259,9 +247,12 @@ app.post('/api/admin/login', async (req, res) => {
             'SELECT * FROM admin_users WHERE username = $1 AND password = $2', [username, password]
         );
         if (result.rows.length > 0) {
-            req.session.isAdmin = true;
-            req.session.adminId = result.rows[0].id;
-            res.json({ success: true, message: 'Login successful' });
+            const token = jwt.sign(
+                { adminId: result.rows[0].id, username },
+                JWT_SECRET,
+                { expiresIn: '24h' }
+            );
+            res.json({ success: true, token });
         } else {
             res.status(401).json({ error: 'Invalid credentials' });
         }
@@ -271,17 +262,29 @@ app.post('/api/admin/login', async (req, res) => {
 });
 
 app.post('/api/admin/logout', (req, res) => {
-    req.session.destroy();
-    res.json({ success: true, message: 'Logged out' });
+    res.json({ success: true });
 });
 
 app.get('/api/admin/check', (req, res) => {
-    res.json({ isAuthenticated: !!req.session.isAdmin });
+    const auth = req.headers.authorization;
+    if (!auth || !auth.startsWith('Bearer ')) return res.json({ isAuthenticated: false });
+    try {
+        jwt.verify(auth.split(' ')[1], JWT_SECRET);
+        res.json({ isAuthenticated: true });
+    } catch {
+        res.json({ isAuthenticated: false });
+    }
 });
 
 function requireAdmin(req, res, next) {
-    if (req.session.isAdmin) return next();
-    res.status(401).json({ error: 'Unauthorized' });
+    const auth = req.headers.authorization;
+    if (!auth || !auth.startsWith('Bearer ')) return res.status(401).json({ error: 'Unauthorized' });
+    try {
+        req.admin = jwt.verify(auth.split(' ')[1], JWT_SECRET);
+        next();
+    } catch {
+        res.status(401).json({ error: 'Unauthorized' });
+    }
 }
 
 app.get('/api/admin/appointments', requireAdmin, async (req, res) => {
