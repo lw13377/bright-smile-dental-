@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
 const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
@@ -11,10 +10,12 @@ const nodemailer = require('nodemailer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// PostgreSQL connection pool (Supabase/Vercel)
-const connectionString = process.env.POSTGRES_URL ||
-                         process.env.POSTGRES_URL_NON_POOLING ||
-                         process.env.DATABASE_URL;
+// PostgreSQL connection (supports all Vercel/Supabase env variable names)
+const connectionString =
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_URL_NON_POOLING ||
+    process.env.DATABASE_URL ||
+    process.env.SUPABASE_DB_URL;
 
 const pool = new Pool({
     connectionString,
@@ -40,10 +41,9 @@ async function initEmailTransporter() {
             secure: false,
             auth: { user: testAccount.user, pass: testAccount.pass }
         });
-        console.log('Email configured. Test credentials:', testAccount.user);
-        console.log('View sent emails at: https://ethereal.email');
+        console.log('Email configured:', testAccount.user);
     } catch (error) {
-        console.log('Email setup failed, continuing without email:', error.message);
+        console.log('Email setup failed:', error.message);
         EMAIL_CONFIG.enabled = false;
     }
 }
@@ -55,7 +55,6 @@ async function sendConfirmationEmail(appointment) {
     const formattedDate = appointmentDate.toLocaleDateString('en-US', {
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
-
     const [hours, minutes] = appointment.time.split(':');
     const hour = parseInt(hours);
     const ampm = hour >= 12 ? 'PM' : 'AM';
@@ -63,44 +62,35 @@ async function sendConfirmationEmail(appointment) {
     const formattedTime = `${displayHour}:${minutes} ${ampm}`;
 
     const emailHtml = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-            body { font-family: Georgia, serif; color: #333; line-height: 1.6; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #4a5240; color: white; padding: 30px; text-align: center; }
-            .header h1 { margin: 0; font-size: 24px; letter-spacing: 2px; font-weight: normal; }
-            .content { padding: 30px; background: #f9f9f9; }
-            .appointment-details { background: white; padding: 20px; margin: 20px 0; border-left: 4px solid #4a5240; }
-            .detail-row { display: flex; padding: 10px 0; border-bottom: 1px solid #eee; }
-            .detail-label { font-weight: bold; width: 120px; color: #4a5240; }
-            .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header"><h1>BRIGHT SMILE DENTAL</h1></div>
-            <div class="content">
-                <h2>Appointment Confirmed!</h2>
-                <p>Dear ${appointment.firstName} ${appointment.lastName},</p>
-                <p>Thank you for booking with Bright Smile Dental. We look forward to seeing you!</p>
-                <div class="appointment-details">
-                    <h3 style="margin-top: 0; color: #4a5240;">Appointment Details</h3>
-                    <div class="detail-row"><span class="detail-label">Date:</span><span>${formattedDate}</span></div>
-                    <div class="detail-row"><span class="detail-label">Time:</span><span>${formattedTime}</span></div>
-                    <div class="detail-row"><span class="detail-label">Service:</span><span>${appointment.service}</span></div>
-                    <div class="detail-row"><span class="detail-label">Location:</span><span>${EMAIL_CONFIG.clinicAddress}</span></div>
-                </div>
-                <p>Questions? Call us at <strong>${EMAIL_CONFIG.clinicPhone}</strong></p>
+    <!DOCTYPE html><html><head>
+    <style>
+        body { font-family: Georgia, serif; color: #333; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #4a5240; color: white; padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; letter-spacing: 2px; font-weight: normal; }
+        .content { padding: 30px; background: #f9f9f9; }
+        .detail-row { display: flex; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .detail-label { font-weight: bold; width: 120px; color: #4a5240; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+    </style>
+    </head><body>
+    <div class="container">
+        <div class="header"><h1>BRIGHT SMILE DENTAL</h1></div>
+        <div class="content">
+            <h2>Appointment Confirmed!</h2>
+            <p>Dear ${appointment.firstName} ${appointment.lastName},</p>
+            <p>Thank you for booking with Bright Smile Dental!</p>
+            <div style="background:white;padding:20px;margin:20px 0;border-left:4px solid #4a5240;">
+                <div class="detail-row"><span class="detail-label">Date:</span><span>${formattedDate}</span></div>
+                <div class="detail-row"><span class="detail-label">Time:</span><span>${formattedTime}</span></div>
+                <div class="detail-row"><span class="detail-label">Service:</span><span>${appointment.service}</span></div>
+                <div class="detail-row"><span class="detail-label">Location:</span><span>${EMAIL_CONFIG.clinicAddress}</span></div>
             </div>
-            <div class="footer">
-                <p><strong>${EMAIL_CONFIG.clinicName}</strong></p>
-                <p>${EMAIL_CONFIG.clinicAddress} | ${EMAIL_CONFIG.clinicPhone}</p>
-            </div>
+            <p>Questions? Call <strong>${EMAIL_CONFIG.clinicPhone}</strong></p>
         </div>
-    </body>
-    </html>`;
+        <div class="footer"><p><strong>${EMAIL_CONFIG.clinicName}</strong> | ${EMAIL_CONFIG.clinicPhone}</p></div>
+    </div>
+    </body></html>`;
 
     try {
         const info = await transporter.sendMail({
@@ -110,7 +100,7 @@ async function sendConfirmationEmail(appointment) {
             html: emailHtml
         });
         const previewUrl = nodemailer.getTestMessageUrl(info);
-        if (previewUrl) console.log('Email preview URL:', previewUrl);
+        if (previewUrl) console.log('Email preview:', previewUrl);
         return info;
     } catch (error) {
         console.error('Email error:', error);
@@ -123,10 +113,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    store: new pgSession({
-        pool,
-        createTableIfMissing: true
-    }),
     secret: process.env.SESSION_SECRET || 'brightsmile-secret-2024',
     resave: false,
     saveUninitialized: false,
@@ -136,7 +122,7 @@ app.use(session({
     }
 }));
 
-// Initialize database tables
+// Initialize database
 async function initDatabase() {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS appointments (
@@ -153,7 +139,6 @@ async function initDatabase() {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     `);
-
     await pool.query(`
         CREATE TABLE IF NOT EXISTS admin_users (
             id SERIAL PRIMARY KEY,
@@ -161,23 +146,34 @@ async function initDatabase() {
             password TEXT NOT NULL
         )
     `);
-
     await pool.query(`
         INSERT INTO admin_users (username, password)
         VALUES ('admin', 'brightsmile2024')
         ON CONFLICT (username) DO NOTHING
     `);
-
-    console.log('Database initialized successfully');
+    console.log('Database initialized');
 }
 
+// Lazy init — runs once on first request
+let initDone = false;
+async function ensureInit() {
+    if (initDone) return;
+    await Promise.all([initDatabase(), initEmailTransporter()]);
+    initDone = true;
+}
+
+app.use(async (req, res, next) => {
+    try {
+        await ensureInit();
+        next();
+    } catch (err) {
+        console.error('Init error:', err);
+        res.status(500).json({ error: 'Server initialization failed', details: err.message });
+    }
+});
+
 // Clinic configuration
-const CLINIC_CONFIG = {
-    openTime: 9,
-    closeTime: 17,
-    slotDuration: 30,
-    workDays: [1, 2, 3, 4, 5, 6]
-};
+const CLINIC_CONFIG = { openTime: 9, closeTime: 17, slotDuration: 30, workDays: [1,2,3,4,5,6] };
 
 function generateTimeSlots(date) {
     const slots = [];
@@ -193,23 +189,17 @@ function generateTimeSlots(date) {
 
 // ─── API Routes ────────────────────────────────────────────────────────────
 
-// Get available time slots
 app.get('/api/slots/:date', async (req, res) => {
     try {
         const { date } = req.params;
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-            return res.status(400).json({ error: 'Invalid date format' });
-        }
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return res.status(400).json({ error: 'Invalid date format' });
         const selectedDate = new Date(date);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        if (selectedDate < today) {
-            return res.status(400).json({ error: 'Cannot book in the past' });
-        }
+        if (selectedDate < today) return res.status(400).json({ error: 'Cannot book in the past' });
         const allSlots = generateTimeSlots(date);
         const result = await pool.query(
-            "SELECT time FROM appointments WHERE date = $1 AND status != 'cancelled'",
-            [date]
+            "SELECT time FROM appointments WHERE date = $1 AND status != 'cancelled'", [date]
         );
         const bookedTimes = result.rows.map(r => r.time);
         const availableSlots = allSlots.filter(s => !bookedTimes.includes(s));
@@ -220,7 +210,6 @@ app.get('/api/slots/:date', async (req, res) => {
     }
 });
 
-// Book appointment
 app.post('/api/appointments', async (req, res) => {
     try {
         const { firstName, lastName, email, phone, service, date, time, notes } = req.body;
@@ -231,34 +220,25 @@ app.post('/api/appointments', async (req, res) => {
             "SELECT id FROM appointments WHERE date = $1 AND time = $2 AND status != 'cancelled'",
             [date, time]
         );
-        if (existing.rows.length > 0) {
-            return res.status(409).json({ error: 'This time slot is no longer available' });
-        }
+        if (existing.rows.length > 0) return res.status(409).json({ error: 'This time slot is no longer available' });
         const result = await pool.query(
             `INSERT INTO appointments (first_name, last_name, email, phone, service, date, time, notes)
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`,
             [firstName, lastName, email, phone, service, date, time, notes || '']
         );
         const emailResult = await sendConfirmationEmail({ firstName, lastName, email, service, date, time });
-        res.status(201).json({
-            success: true,
-            message: 'Appointment booked successfully!',
-            appointmentId: result.rows[0].id,
-            emailSent: !!emailResult
-        });
+        res.status(201).json({ success: true, message: 'Appointment booked!', appointmentId: result.rows[0].id, emailSent: !!emailResult });
     } catch (error) {
         console.error('Booking error:', error);
         res.status(500).json({ error: 'Failed to book appointment' });
     }
 });
 
-// Admin login
 app.post('/api/admin/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const result = await pool.query(
-            'SELECT * FROM admin_users WHERE username = $1 AND password = $2',
-            [username, password]
+            'SELECT * FROM admin_users WHERE username = $1 AND password = $2', [username, password]
         );
         if (result.rows.length > 0) {
             req.session.isAdmin = true;
@@ -272,24 +252,20 @@ app.post('/api/admin/login', async (req, res) => {
     }
 });
 
-// Admin logout
 app.post('/api/admin/logout', (req, res) => {
     req.session.destroy();
     res.json({ success: true, message: 'Logged out' });
 });
 
-// Check admin auth
 app.get('/api/admin/check', (req, res) => {
     res.json({ isAuthenticated: !!req.session.isAdmin });
 });
 
-// Admin middleware
 function requireAdmin(req, res, next) {
     if (req.session.isAdmin) return next();
     res.status(401).json({ error: 'Unauthorized' });
 }
 
-// Get all appointments (admin)
 app.get('/api/admin/appointments', requireAdmin, async (req, res) => {
     try {
         const { date, status, search } = req.query;
@@ -312,13 +288,11 @@ app.get('/api/admin/appointments', requireAdmin, async (req, res) => {
     }
 });
 
-// Get patient history (admin)
 app.get('/api/admin/patient-history/:email', requireAdmin, async (req, res) => {
     try {
         const { email } = req.params;
         const result = await pool.query(
-            'SELECT * FROM appointments WHERE email = $1 ORDER BY date DESC, time DESC',
-            [email]
+            'SELECT * FROM appointments WHERE email = $1 ORDER BY date DESC, time DESC', [email]
         );
         const appointments = result.rows;
         const patient = appointments.length > 0 ? {
@@ -337,15 +311,12 @@ app.get('/api/admin/patient-history/:email', requireAdmin, async (req, res) => {
     }
 });
 
-// Get patients list (admin)
 app.get('/api/admin/patients', requireAdmin, async (req, res) => {
     try {
         const { search } = req.query;
-        let query = `
-            SELECT email, first_name, last_name, phone,
-                   COUNT(*) as total_appointments, MAX(date) as last_visit
-            FROM appointments
-        `;
+        let query = `SELECT email, first_name, last_name, phone,
+                     COUNT(*) as total_appointments, MAX(date) as last_visit
+                     FROM appointments`;
         const params = [];
         if (search) {
             params.push(`%${search.toLowerCase()}%`);
@@ -359,15 +330,12 @@ app.get('/api/admin/patients', requireAdmin, async (req, res) => {
     }
 });
 
-// Update appointment status (admin)
 app.patch('/api/admin/appointments/:id', requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         const { status } = req.body;
         const validStatuses = ['confirmed', 'completed', 'cancelled', 'no-show'];
-        if (!validStatuses.includes(status)) {
-            return res.status(400).json({ error: 'Invalid status' });
-        }
+        if (!validStatuses.includes(status)) return res.status(400).json({ error: 'Invalid status' });
         await pool.query('UPDATE appointments SET status = $1 WHERE id = $2', [status, parseInt(id)]);
         res.json({ success: true, message: 'Appointment updated' });
     } catch (error) {
@@ -375,7 +343,6 @@ app.patch('/api/admin/appointments/:id', requireAdmin, async (req, res) => {
     }
 });
 
-// Delete appointment (admin)
 app.delete('/api/admin/appointments/:id', requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
@@ -392,8 +359,11 @@ app.get('/before-after', (req, res) => res.sendFile(path.join(__dirname, 'public
 app.get('/book', (req, res) => res.sendFile(path.join(__dirname, 'public', 'book-appointment.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 
-// Start server
-Promise.all([initDatabase(), initEmailTransporter()]).then(() => {
+// Export for Vercel serverless
+module.exports = app;
+
+// Start server for local development
+if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`
     ====================================
@@ -401,14 +371,8 @@ Promise.all([initDatabase(), initEmailTransporter()]).then(() => {
     ====================================
     Website:     http://localhost:${PORT}
     Admin Panel: http://localhost:${PORT}/admin
-
-    Admin Login:
-    Username: admin
-    Password: brightsmile2024
+    Admin Login: admin / brightsmile2024
     ====================================
         `);
     });
-}).catch(err => {
-    console.error('Failed to initialize:', err);
-    process.exit(1);
-});
+}
