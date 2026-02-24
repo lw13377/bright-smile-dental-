@@ -11,11 +11,24 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // PostgreSQL connection (supports all Vercel/Supabase env variable names)
-const connectionString =
-    process.env.POSTGRES_URL ||
+// Use non-pooling URL for direct connection (better SSL compatibility)
+const rawConnection =
     process.env.POSTGRES_URL_NON_POOLING ||
-    process.env.DATABASE_URL ||
-    process.env.SUPABASE_DB_URL;
+    process.env.POSTGRES_URL ||
+    process.env.DATABASE_URL;
+
+// Strip sslmode param from URL so our ssl config takes full control
+function cleanConnectionString(cs) {
+    if (!cs) return cs;
+    try {
+        const url = new URL(cs);
+        url.searchParams.delete('sslmode');
+        url.searchParams.delete('pgbouncer');
+        return url.toString();
+    } catch (e) { return cs; }
+}
+
+const connectionString = cleanConnectionString(rawConnection);
 
 const pool = new Pool({
     connectionString,
