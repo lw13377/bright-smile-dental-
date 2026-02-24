@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"C:\\\\Users\\\\eabra\\\\WebstormProjects\\\\child-care\\\\index.html\" \"C:\\\\Users\\\\eabra\\\\WebstormProjects\\\\child-care\\\\styles.css\")",
+      "Bash(if not exist \"C:\\\\Users\\\\eabra\\\\WebstormProjects\\\\child-care\\\\public\\\\images\" mkdir \"C:\\\\Users\\\\eabra\\\\WebstormProjects\\\\child-care\\\\public\\\\images\")",
+      "Bash(powershell:*)",
+      "Bash(npm install:*)",
+      "Bash(npm start)",
+      "Bash(cd:*)"
+    ]
+  }
+}

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Bright Smile Dental</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Additional Admin Styles */
+        .admin-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid hsla(255, 255, 255, 0.1);
+        }
+        .admin-tab {
+            padding: 1rem 2rem;
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: transparent;
+            border: none;
+            color: hsla(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+        .admin-tab:hover {
+            color: white;
+        }
+        .admin-tab.active {
+            color: white;
+            border-bottom-color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            background: transparent;
+            border: 1px solid hsla(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 4px;
+        }
+        .search-box input::placeholder {
+            color: hsla(255, 255, 255, 0.5);
+        }
+        .search-box svg {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+        .patient-card {
+            background: hsla(255, 255, 255, 0.03);
+            border: 1px solid hsla(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .patient-card:hover {
+            background: hsla(255, 255, 255, 0.06);
+            transform: translateY(-2px);
+        }
+        .patient-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        .patient-name {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+        .patient-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: hsla(255, 255, 255, 0.7);
+        }
+        .patient-contact {
+            font-size: 0.9rem;
+            color: hsla(255, 255, 255, 0.7);
+        }
+        .patient-history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid hsla(255, 255, 255, 0.1);
+        }
+        .patient-info-card {
+            background: hsla(255, 255, 255, 0.03);
+            border: 1px solid hsla(255, 255, 255, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+        .patient-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .info-item {
+            text-align: center;
+        }
+        .info-item .number {
+            font-size: 2rem;
+            font-family: 'Josefin Sans', sans-serif;
+            color: hsl(30, 36.84%, 85.1%);
+        }
+        .info-item .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: hsla(255, 255, 255, 0.6);
+            margin-top: 0.25rem;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .back-btn:hover {
+            opacity: 0.7;
+        }
+        .history-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: hsla(255, 255, 255, 0.1);
+        }
+        .history-item {
+            position: relative;
+            padding: 1.5rem;
+            background: hsla(255, 255, 255, 0.03);
+            border: 1px solid hsla(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        .history-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 1.75rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: hsl(88, 12.4%, 23.73%);
+            border: 2px solid white;
+            transform: translateX(-4px);
+        }
+        .history-date {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .history-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .history-service {
+            font-size: 1.1rem;
+        }
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: hsla(255, 255, 255, 0.5);
+        }
+        @media (max-width: 768px) {
+            .patient-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+            .admin-tab {
+                padding: 0.75rem 1rem;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-wrapper admin-wrapper">
+        <!-- Login Section -->
+        <section class="admin-login-section" id="login-section">
+            <div class="admin-login-card">
+                <div class="login-logo">
+                    <svg class="logo" viewBox="0 0 200 60" width="180" height="54">
+                        <g class="logo-icon" transform="translate(0, 5)">
+                            <path d="M25 5 C15 5, 8 12, 8 22 C8 32, 12 38, 15 48 C16 52, 18 52, 20 48 C22 42, 24 42, 25 42 C26 42, 28 42, 30 48 C32 52, 34 52, 35 48 C38 38, 42 32, 42 22 C42 12, 35 5, 25 5 Z"
+                                  fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            <ellipse cx="18" cy="18" rx="3" ry="4" fill="currentColor" opacity="0.3"/>
+                            <ellipse cx="32" cy="18" rx="3" ry="4" fill="currentColor" opacity="0.3"/>
+                        </g>
+                        <text x="52" y="28" class="logo-text-main">BRIGHT SMILE</text>
+                        <text x="52" y="45" class="logo-text-sub">DENTAL</text>
+                    </svg>
+                </div>
+                <h1>ADMIN LOGIN</h1>
+                <form class="admin-login-form" id="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required autocomplete="current-password">
+                    </div>
+                    <p class="login-error hidden" id="login-error">Invalid username or password</p>
+                    <button type="submit" class="btn-primary full-width">Login</button>
+                </form>
+                <a href="/" class="back-link">Back to Website</a>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard -->
+        <section class="admin-dashboard hidden" id="dashboard-section">
+            <!-- Admin Header -->
+            <header class="admin-header">
+                <div class="admin-header-inner">
+                    <a href="/" class="logo-link">
+                        <svg class="logo" viewBox="0 0 200 60" width="160" height="48">
+                            <g class="logo-icon" transform="translate(0, 5)">
+                                <path d="M25 5 C15 5, 8 12, 8 22 C8 32, 12 38, 15 48 C16 52, 18 52, 20 48 C22 42, 24 42, 25 42 C26 42, 28 42, 30 48 C32 52, 34 52, 35 48 C38 38, 42 32, 42 22 C42 12, 35 5, 25 5 Z"
+                                      fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                <ellipse cx="18" cy="18" rx="3" ry="4" fill="currentColor" opacity="0.3"/>
+                                <ellipse cx="32" cy="18" rx="3" ry="4" fill="currentColor" opacity="0.3"/>
+                            </g>
+                            <text x="52" y="28" class="logo-text-main">BRIGHT SMILE</text>
+                            <text x="52" y="45" class="logo-text-sub">DENTAL</text>
+                        </svg>
+                    </a>
+                    <h1>Admin Dashboard</h1>
+                    <button class="btn-secondary" onclick="logout()">Logout</button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="admin-content">
+                <!-- Stats Cards -->
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <h3 id="stat-today">0</h3>
+                        <p>Today's Appointments</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-week">0</h3>
+                        <p>This Week</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-pending">0</h3>
+                        <p>Pending</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-total">0</h3>
+                        <p>Total Appointments</p>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="appointments">Appointments</button>
+                    <button class="admin-tab" data-tab="patients">Patients</button>
+                </div>
+
+                <!-- Appointments Tab -->
+                <div class="tab-content active" id="tab-appointments">
+                    <!-- Filters -->
+                    <div class="admin-filters">
+                        <div class="search-box">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                            <input type="text" id="search-appointments" placeholder="Search by name, email, or phone...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-date">Date:</label>
+                            <input type="date" id="filter-date">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-status">Status:</label>
+                            <select id="filter-status">
+                                <option value="">All</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                                <option value="no-show">No Show</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="loadAppointments()">Search</button>
+                        <button class="btn-secondary" onclick="clearFilters()">Clear</button>
+                    </div>
+
+                    <!-- Appointments Table -->
+                    <div class="admin-table-container">
+                        <table class="admin-table" id="appointments-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Patient</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Service</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointments-body">
+                            </tbody>
+                        </table>
+                        <div class="table-loading hidden" id="table-loading">
+                            <div class="spinner"></div>
+                            <p>Loading appointments...</p>
+                        </div>
+                        <p class="no-appointments hidden" id="no-appointments">No appointments found.</p>
+                    </div>
+                </div>
+
+                <!-- Patients Tab -->
+                <div class="tab-content" id="tab-patients">
+                    <!-- Patient List View -->
+                    <div id="patients-list-view">
+                        <div class="admin-filters">
+                            <div class="search-box">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                </svg>
+                                <input type="text" id="search-patients" placeholder="Search patients by name, email, or phone...">
+                            </div>
+                            <button class="btn-primary" onclick="loadPatients()">Search</button>
+                        </div>
+
+                        <div id="patients-grid">
+                            <!-- Patient cards will be loaded here -->
+                        </div>
+                        <div class="table-loading hidden" id="patients-loading">
+                            <div class="spinner"></div>
+                            <p>Loading patients...</p>
+                        </div>
+                        <p class="no-results hidden" id="no-patients">No patients found.</p>
+                    </div>
+
+                    <!-- Patient History View -->
+                    <div id="patient-history-view" class="hidden">
+                        <div class="patient-history-header">
+                            <button class="back-btn" onclick="showPatientsList()">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                                </svg>
+                                Back to Patients
+                            </button>
+                        </div>
+
+                        <div class="patient-info-card" id="patient-info-card">
+                            <!-- Patient info will be loaded here -->
+                        </div>
+
+                        <h3 style="margin-bottom: 1.5rem; font-size: 1rem; letter-spacing: 0.15em;">APPOINTMENT HISTORY</h3>
+
+                        <div class="history-timeline" id="patient-history-timeline">
+                            <!-- History will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appointment Detail Modal -->
+        <div class="modal hidden" id="appointment-modal">
+            <div class="modal-overlay" onclick="closeModal()"></div>
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2>APPOINTMENT DETAILS</h2>
+                <div class="modal-body" id="modal-body">
+                </div>
+                <div class="modal-actions" id="modal-actions">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication on load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuth();
+            setupTabs();
+            setupSearch();
+        });
+
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/admin/check');
+                const data = await response.json();
+                if (data.isAuthenticated) {
+                    showDashboard();
+                } else {
+                    showLogin();
+                }
+            } catch (error) {
+                showLogin();
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('login-section').classList.remove('hidden');
+            document.getElementById('dashboard-section').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('dashboard-section').classList.remove('hidden');
+            loadAppointments();
+            loadStats();
+        }
+
+        // Login form handler
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('login-error');
+            errorEl.classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    showDashboard();
+                } else {
+                    errorEl.classList.remove('hidden');
+                }
+            } catch (error) {
+                errorEl.textContent = 'Connection error. Please try again.';
+                errorEl.classList.remove('hidden');
+            }
+        });
+
+        async function logout() {
+            try {
+                await fetch('/api/admin/logout', { method: 'POST' });
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+            showLogin();
+        }
+
+        // Tab functionality
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.admin-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+
+                    if (tab.dataset.tab === 'patients') {
+                        loadPatients();
+                    }
+                });
+            });
+        }
+
+        // Search with debounce
+        function setupSearch() {
+            let appointmentTimeout;
+            document.getElementById('search-appointments').addEventListener('input', (e) => {
+                clearTimeout(appointmentTimeout);
+                appointmentTimeout = setTimeout(() => loadAppointments(), 300);
+            });
+
+            let patientTimeout;
+            document.getElementById('search-patients').addEventListener('input', (e) => {
+                clearTimeout(patientTimeout);
+                patientTimeout = setTimeout(() => loadPatients(), 300);
+            });
+        }
+
+        async function loadAppointments() {
+            const tableBody = document.getElementById('appointments-body');
+            const loadingEl = document.getElementById('table-loading');
+            const noAppointmentsEl = document.getElementById('no-appointments');
+
+            const search = document.getElementById('search-appointments').value;
+            const dateFilter = document.getElementById('filter-date').value;
+            const statusFilter = document.getElementById('filter-status').value;
+
+            tableBody.innerHTML = '';
+            loadingEl.classList.remove('hidden');
+            noAppointmentsEl.classList.add('hidden');
+
+            try {
+                let url = '/api/admin/appointments?';
+                if (search) url += `search=${encodeURIComponent(search)}&`;
+                if (dateFilter) url += `date=${dateFilter}&`;
+                if (statusFilter) url += `status=${statusFilter}&`;
+
+                const response = await fetch(url);
+                const appointments = await response.json();
+
+                loadingEl.classList.add('hidden');
+
+                if (appointments.length === 0) {
+                    noAppointmentsEl.classList.remove('hidden');
+                    return;
+                }
+
+                appointments.forEach(apt => {
+                    const row = createAppointmentRow(apt);
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                loadingEl.classList.add('hidden');
+                tableBody.innerHTML = '<tr><td colspan="8" class="error">Error loading appointments</td></tr>';
+            }
+        }
+
+        function createAppointmentRow(apt) {
+            const row = document.createElement('tr');
+            row.dataset.id = apt.id;
+
+            const formattedDate = new Date(apt.date + 'T00:00:00').toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            const [hours, minutes] = apt.time.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            const formattedTime = `${displayHour}:${minutes} ${ampm}`;
+
+            row.innerHTML = `
+                <td>${formattedDate}</td>
+                <td>${formattedTime}</td>
+                <td><a href="#" onclick="viewPatientHistory('${apt.email}'); return false;" style="color: inherit; text-decoration: underline;">${apt.first_name} ${apt.last_name}</a></td>
+                <td>${apt.email}</td>
+                <td>${apt.phone}</td>
+                <td>${apt.service}</td>
+                <td><span class="status-badge ${apt.status}">${apt.status}</span></td>
+                <td class="actions-cell">
+                    <button class="action-btn view" onclick="viewAppointment(${apt.id})">View</button>
+                    <button class="action-btn delete" onclick="deleteAppointment(${apt.id})">Delete</button>
+                </td>
+            `;
+
+            return row;
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/admin/appointments');
+                const appointments = await response.json();
+
+                const today = new Date().toISOString().split('T')[0];
+                const weekStart = new Date();
+                weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+                const weekStartStr = weekStart.toISOString().split('T')[0];
+
+                const todayCount = appointments.filter(apt => apt.date === today && apt.status !== 'cancelled').length;
+                const weekCount = appointments.filter(apt => apt.date >= weekStartStr && apt.status !== 'cancelled').length;
+                const pendingCount = appointments.filter(apt => apt.status === 'confirmed').length;
+                const totalCount = appointments.length;
+
+                document.getElementById('stat-today').textContent = todayCount;
+                document.getElementById('stat-week').textContent = weekCount;
+                document.getElementById('stat-pending').textContent = pendingCount;
+                document.getElementById('stat-total').textContent = totalCount;
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById('search-appointments').value = '';
+            document.getElementById('filter-date').value = '';
+            document.getElementById('filter-status').value = '';
+            loadAppointments();
+        }
+
+        // Patients functionality
+        async function loadPatients() {
+            const container = document.getElementById('patients-grid');
+            const loadingEl = document.getElementById('patients-loading');
+            const noPatientsEl = document.getElementById('no-patients');
+
+            const search = document.getElementById('search-patients').value;
+
+            container.innerHTML = '';
+            loadingEl.classList.remove('hidden');
+            noPatientsEl.classList.add('hidden');
+
+            try {
+                let url = '/api/admin/patients';
+                if (search) url += `?search=${encodeURIComponent(search)}`;
+
+                const response = await fetch(url);
+                const patients = await response.json();
+
+                loadingEl.classList.add('hidden');
+
+                if (patients.length === 0) {
+                    noPatientsEl.classList.remove('hidden');
+                    return;
+                }
+
+                patients.forEach(patient => {
+                    const card = document.createElement('div');
+                    card.className = 'patient-card';
+                    card.onclick = () => viewPatientHistory(patient.email);
+
+                    const lastVisit = patient.last_visit ? new Date(patient.last_visit + 'T00:00:00').toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    }) : 'N/A';
+
+                    card.innerHTML = `
+                        <div class="patient-card-header">
+                            <span class="patient-name">${patient.first_name} ${patient.last_name}</span>
+                            <span class="patient-stats">${patient.total_appointments} appointments</span>
+                        </div>
+                        <div class="patient-contact">
+                            <div>${patient.email}</div>
+                            <div>${patient.phone}</div>
+                            <div style="margin-top: 0.5rem; font-size: 0.8rem;">Last visit: ${lastVisit}</div>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                loadingEl.classList.add('hidden');
+                container.innerHTML = '<p class="error">Error loading patients</p>';
+            }
+        }
+
+        async function viewPatientHistory(email) {
+            // Switch to patients tab
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('[data-tab="patients"]').classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('tab-patients').classList.add('active');
+
+            // Show history view
+            document.getElementById('patients-list-view').classList.add('hidden');
+            document.getElementById('patient-history-view').classList.remove('hidden');
+
+            try {
+                const response = await fetch(`/api/admin/patient-history/${encodeURIComponent(email)}`);
+                const data = await response.json();
+
+                if (!data.patient) {
+                    document.getElementById('patient-info-card').innerHTML = '<p>Patient not found</p>';
+                    return;
+                }
+
+                // Render patient info
+                document.getElementById('patient-info-card').innerHTML = `
+                    <h2 style="margin: 0 0 0.5rem; font-size: 1.5rem;">${data.patient.firstName} ${data.patient.lastName}</h2>
+                    <p style="margin: 0; color: hsla(255, 255, 255, 0.7);">${data.patient.email} | ${data.patient.phone}</p>
+                    <div class="patient-info-grid">
+                        <div class="info-item">
+                            <div class="number">${data.patient.totalAppointments}</div>
+                            <div class="label">Total Visits</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="number">${data.patient.completedAppointments}</div>
+                            <div class="label">Completed</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="number">${data.patient.cancelledAppointments}</div>
+                            <div class="label">Cancelled</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="number">${data.patient.noShows}</div>
+                            <div class="label">No Shows</div>
+                        </div>
+                    </div>
+                `;
+
+                // Render history timeline
+                const timeline = document.getElementById('patient-history-timeline');
+                timeline.innerHTML = '';
+
+                data.appointments.forEach(apt => {
+                    const formattedDate = new Date(apt.date + 'T00:00:00').toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+
+                    const [hours, minutes] = apt.time.split(':');
+                    const hour = parseInt(hours);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour % 12 || 12;
+                    const formattedTime = `${displayHour}:${minutes} ${ampm}`;
+
+                    const item = document.createElement('div');
+                    item.className = 'history-item';
+                    item.innerHTML = `
+                        <div class="history-date">${formattedDate} at ${formattedTime}</div>
+                        <div class="history-details">
+                            <span class="history-service">${apt.service}</span>
+                            <span class="status-badge ${apt.status}">${apt.status}</span>
+                        </div>
+                        ${apt.notes ? `<p style="margin: 0.75rem 0 0; font-size: 0.9rem; color: hsla(255, 255, 255, 0.7);">Notes: ${apt.notes}</p>` : ''}
+                    `;
+                    timeline.appendChild(item);
+                });
+
+            } catch (error) {
+                console.error('Error loading patient history:', error);
+            }
+        }
+
+        function showPatientsList() {
+            document.getElementById('patients-list-view').classList.remove('hidden');
+            document.getElementById('patient-history-view').classList.add('hidden');
+        }
+
+        async function viewAppointment(id) {
+            try {
+                const response = await fetch('/api/admin/appointments');
+                const appointments = await response.json();
+                const apt = appointments.find(a => a.id === id);
+
+                if (!apt) {
+                    alert('Appointment not found');
+                    return;
+                }
+
+                const formattedDate = new Date(apt.date + 'T00:00:00').toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+
+                const [hours, minutes] = apt.time.split(':');
+                const hour = parseInt(hours);
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+                const displayHour = hour % 12 || 12;
+                const formattedTime = `${displayHour}:${minutes} ${ampm}`;
+
+                document.getElementById('modal-body').innerHTML = `
+                    <div class="detail-row">
+                        <span class="detail-label">Patient Name</span>
+                        <span class="detail-value"><a href="#" onclick="viewPatientHistory('${apt.email}'); closeModal(); return false;" style="color: inherit;">${apt.first_name} ${apt.last_name}</a></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value">${apt.email}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Phone</span>
+                        <span class="detail-value">${apt.phone}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Date</span>
+                        <span class="detail-value">${formattedDate}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Time</span>
+                        <span class="detail-value">${formattedTime}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Service</span>
+                        <span class="detail-value">${apt.service}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status</span>
+                        <span class="detail-value"><span class="status-badge ${apt.status}">${apt.status}</span></span>
+                    </div>
+                    ${apt.notes ? `<div class="detail-row"><span class="detail-label">Notes</span><span class="detail-value">${apt.notes}</span></div>` : ''}
+                    <div class="detail-row">
+                        <span class="detail-label">Booked On</span>
+                        <span class="detail-value">${new Date(apt.created_at).toLocaleString()}</span>
+                    </div>
+                `;
+
+                document.getElementById('modal-actions').innerHTML = `
+                    <select id="status-select">
+                        <option value="confirmed" ${apt.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                        <option value="completed" ${apt.status === 'completed' ? 'selected' : ''}>Completed</option>
+                        <option value="cancelled" ${apt.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                        <option value="no-show" ${apt.status === 'no-show' ? 'selected' : ''}>No Show</option>
+                    </select>
+                    <button class="btn-primary" onclick="updateStatus(${apt.id})">Update Status</button>
+                `;
+
+                document.getElementById('appointment-modal').classList.remove('hidden');
+            } catch (error) {
+                alert('Error loading appointment details');
+            }
+        }
+
+        async function updateStatus(id) {
+            const status = document.getElementById('status-select').value;
+
+            try {
+                const response = await fetch(`/api/admin/appointments/${id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+
+                if (response.ok) {
+                    closeModal();
+                    loadAppointments();
+                    loadStats();
+                } else {
+                    alert('Error updating appointment');
+                }
+            } catch (error) {
+                alert('Error updating appointment');
+            }
+        }
+
+        async function deleteAppointment(id) {
+            if (!confirm('Are you sure you want to delete this appointment?')) return;
+
+            try {
+                const response = await fetch(`/api/admin/appointments/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    loadAppointments();
+                    loadStats();
+                } else {
+                    alert('Error deleting appointment');
+                }
+            } catch (error) {
+                alert('Error deleting appointment');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('appointment-modal').classList.add('hidden');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

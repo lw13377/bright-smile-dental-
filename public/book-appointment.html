@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Bright Smile Dental</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Particle Background Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="site-wrapper">
+        <!-- Header Section -->
+        <header class="header" data-section-theme="dark">
+            <div class="header-inner">
+                <div class="header-left">
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="header-center">
+                    <a href="index.html" class="logo-link">
+                        <svg class="logo" viewBox="0 0 200 60" width="200" height="60">
+                            <g class="logo-icon" transform="translate(0, 5)">
+                                <path d="M25 5 C15 5, 8 12, 8 22 C8 32, 12 38, 15 48 C16 52, 18 52, 20 48 C22 42, 24 42, 25 42 C26 42, 28 42, 30 48 C32 52, 34 52, 35 48 C38 38, 42 32, 42 22 C42 12, 35 5, 25 5 Z"
+                                      fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                <ellipse cx="18" cy="18" rx="3" ry="4" fill="currentColor" opacity="0.3"/>
+                                <ellipse cx="32" cy="18" rx="3" ry="4" fill="currentColor" opacity="0.3"/>
+                            </g>
+                            <text x="52" y="28" class="logo-text-main">BRIGHT SMILE</text>
+                            <text x="52" y="45" class="logo-text-sub">DENTAL</text>
+                        </svg>
+                    </a>
+                </div>
+                <div class="header-right">
+                    <a href="tel:+15551234567" class="header-link cart-link">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        Call Us
+                    </a>
+                    <a href="book-appointment.html" class="btn-primary active">Book Appointment</a>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="before-after.html">Before & After</a></li>
+                    <li><a href="book-appointment.html" class="active">Book Appointment</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- Page Hero -->
+        <section class="page-hero" data-section-theme="dark">
+            <div class="page-hero-content">
+                <p class="page-hero-label">SCHEDULE YOUR VISIT</p>
+                <h1 class="page-hero-title">BOOK AN APPOINTMENT</h1>
+                <p class="page-hero-subtitle">Select your preferred date and time. We're open Monday-Saturday, 9am-5pm.</p>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section class="booking-section page-section" data-section-theme="dark">
+            <div class="booking-container">
+                <!-- Progress Steps -->
+                <div class="booking-progress">
+                    <div class="progress-step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Select Date</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Choose Time</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Your Details</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="4">
+                        <span class="step-number">4</span>
+                        <span class="step-label">Confirm</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Date Selection -->
+                <div class="booking-step" id="step-1">
+                    <h2 class="step-title">SELECT A DATE</h2>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="calendar-nav prev" id="prev-month">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                                </svg>
+                            </button>
+                            <h3 id="current-month">February 2024</h3>
+                            <button class="calendar-nav next" id="next-month">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <span>Sun</span>
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                        </div>
+                        <div class="calendar-days" id="calendar-days">
+                            <!-- Days will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    <p class="calendar-note">Note: We are closed on Sundays</p>
+                </div>
+
+                <!-- Step 2: Time Selection -->
+                <div class="booking-step hidden" id="step-2">
+                    <h2 class="step-title">SELECT A TIME</h2>
+                    <p class="selected-date-display">Selected date: <strong id="display-date"></strong></p>
+                    <div class="time-slots-container">
+                        <div class="time-slots-header">
+                            <span class="slot-legend available">Available</span>
+                            <span class="slot-legend booked">Booked</span>
+                        </div>
+                        <div class="time-slots-grid" id="time-slots">
+                            <!-- Time slots will be generated by JavaScript -->
+                        </div>
+                        <div class="time-loading hidden" id="time-loading">
+                            <div class="spinner"></div>
+                            <p>Loading available times...</p>
+                        </div>
+                    </div>
+                    <button class="btn-secondary back-btn" onclick="goToStep(1)">Back to Calendar</button>
+                </div>
+
+                <!-- Step 3: Personal Details -->
+                <div class="booking-step hidden" id="step-3">
+                    <h2 class="step-title">YOUR DETAILS</h2>
+                    <form class="booking-form" id="booking-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Type *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service</option>
+                                <option value="General Checkup">General Checkup & Cleaning</option>
+                                <option value="Teeth Whitening">Teeth Whitening</option>
+                                <option value="Dental Filling">Dental Filling</option>
+                                <option value="Root Canal">Root Canal Treatment</option>
+                                <option value="Extraction">Tooth Extraction</option>
+                                <option value="Veneers">Veneers Consultation</option>
+                                <option value="Invisalign">Invisalign Consultation</option>
+                                <option value="Emergency">Emergency Care</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Additional Notes (Optional)</label>
+                            <textarea id="notes" name="notes" rows="3" placeholder="Any specific concerns or requests..."></textarea>
+                        </div>
+                    </form>
+                    <div class="step-buttons">
+                        <button class="btn-secondary back-btn" onclick="goToStep(2)">Back</button>
+                        <button class="btn-primary" onclick="goToStep(4)">Review Booking</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="booking-step hidden" id="step-4">
+                    <h2 class="step-title">CONFIRM YOUR BOOKING</h2>
+                    <div class="booking-summary">
+                        <div class="summary-item">
+                            <span class="summary-label">Date</span>
+                            <span class="summary-value" id="summary-date"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Time</span>
+                            <span class="summary-value" id="summary-time"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Service</span>
+                            <span class="summary-value" id="summary-service"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Name</span>
+                            <span class="summary-value" id="summary-name"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Email</span>
+                            <span class="summary-value" id="summary-email"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Phone</span>
+                            <span class="summary-value" id="summary-phone"></span>
+                        </div>
+                    </div>
+                    <div class="step-buttons">
+                        <button class="btn-secondary back-btn" onclick="goToStep(3)">Edit Details</button>
+                        <button class="btn-primary" id="confirm-booking" onclick="submitBooking()">Confirm Appointment</button>
+                    </div>
+                    <div class="booking-loading hidden" id="booking-loading">
+                        <div class="spinner"></div>
+                        <p>Booking your appointment...</p>
+                    </div>
+                </div>
+
+                <!-- Success Message -->
+                <div class="booking-step hidden" id="step-success">
+                    <div class="success-message">
+                        <div class="success-icon">
+                            <svg viewBox="0 0 24 24" width="64" height="64" fill="currentColor">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </div>
+                        <h2>APPOINTMENT CONFIRMED!</h2>
+                        <p>Thank you for booking with Bright Smile Dental.</p>
+                        <div class="confirmation-details" id="confirmation-details">
+                            <!-- Will be populated after booking -->
+                        </div>
+                        <p class="confirmation-note">A confirmation email has been sent to your email address.</p>
+                        <a href="index.html" class="btn-primary">Return Home</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" data-section-theme="dark">
+            <div class="footer-inner">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <a href="index.html" class="logo-link">
+                            <svg class="logo footer-logo" viewBox="0 0 200 60" width="160" height="48">
+                                <g class="logo-icon" transform="translate(0, 5)">
+                                    <path d="M25 5 C15 5, 8 12, 8 22 C8 32, 12 38, 15 48 C16 52, 18 52, 20 48 C22 42, 24 42, 25 42 C26 42, 28 42, 30 48 C32 52, 34 52, 35 48 C38 38, 42 32, 42 22 C42 12, 35 5, 25 5 Z"
+                                          fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    <ellipse cx="18" cy="18" rx="3" ry="4" fill="currentColor" opacity="0.3"/>
+                                    <ellipse cx="32" cy="18" rx="3" ry="4" fill="currentColor" opacity="0.3"/>
+                                </g>
+                                <text x="52" y="28" class="logo-text-main">BRIGHT SMILE</text>
+                                <text x="52" y="45" class="logo-text-sub">DENTAL</text>
+                            </svg>
+                        </a>
+                    </div>
+                    <nav class="footer-nav">
+                        <a href="index.html">Home</a>
+                        <a href="index.html#services">Services</a>
+                        <a href="before-after.html">Before & After</a>
+                        <a href="book-appointment.html">Book</a>
+                        <a href="index.html#contact">Contact</a>
+                    </nav>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Bright Smile Dental. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Particle Background Script -->
+    <script src="js/particles.js"></script>
+
+    <script>
+        // Auto-detect API base URL (works when opened directly OR through server)
+        const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';
+
+        // Booking state
+        let selectedDate = null;
+        let selectedTime = null;
+        let currentMonth = new Date();
+
+        // Mobile menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mainNav = document.querySelector('.main-nav');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenuBtn.classList.toggle('active');
+                mainNav.classList.toggle('active');
+            });
+        }
+
+        // Calendar functions
+        function renderCalendar() {
+            const calendarDays = document.getElementById('calendar-days');
+            const currentMonthEl = document.getElementById('current-month');
+
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+
+            currentMonthEl.textContent = new Date(year, month).toLocaleDateString('en-US', {
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startingDay = firstDay.getDay();
+            const totalDays = lastDay.getDate();
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            let html = '';
+
+            // Empty cells for days before first day of month
+            for (let i = 0; i < startingDay; i++) {
+                html += '<span class="calendar-day empty"></span>';
+            }
+
+            // Days of the month
+            for (let day = 1; day <= totalDays; day++) {
+                const date = new Date(year, month, day);
+                const dateStr = date.toISOString().split('T')[0];
+                const dayOfWeek = date.getDay();
+                const isPast = date < today;
+                const isSunday = dayOfWeek === 0;
+                const isSelected = selectedDate === dateStr;
+
+                let classes = 'calendar-day';
+                if (isPast) classes += ' past';
+                if (isSunday) classes += ' closed';
+                if (isSelected) classes += ' selected';
+                if (!isPast && !isSunday) classes += ' available';
+
+                html += `<span class="${classes}" data-date="${dateStr}" onclick="selectDate('${dateStr}', ${isPast}, ${isSunday})">${day}</span>`;
+            }
+
+            calendarDays.innerHTML = html;
+        }
+
+        function selectDate(dateStr, isPast, isSunday) {
+            if (isPast || isSunday) return;
+
+            selectedDate = dateStr;
+            renderCalendar();
+            loadTimeSlots(dateStr);
+            goToStep(2);
+        }
+
+        async function loadTimeSlots(date) {
+            const timeSlotsEl = document.getElementById('time-slots');
+            const loadingEl = document.getElementById('time-loading');
+            const displayDateEl = document.getElementById('display-date');
+
+            // Format date for display
+            const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            displayDateEl.textContent = formattedDate;
+
+            // Show loading
+            timeSlotsEl.innerHTML = '';
+            loadingEl.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`${API_BASE}/api/slots/${date}`);
+                const data = await response.json();
+
+                loadingEl.classList.add('hidden');
+
+                if (data.allSlots.length === 0) {
+                    timeSlotsEl.innerHTML = '<p class="no-slots">No appointments available on this day.</p>';
+                    return;
+                }
+
+                let html = '';
+                data.allSlots.forEach(slot => {
+                    const isBooked = data.bookedSlots.includes(slot);
+                    const isSelected = selectedTime === slot;
+
+                    // Convert 24h to 12h format
+                    const [hours, minutes] = slot.split(':');
+                    const hour = parseInt(hours);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour % 12 || 12;
+                    const displayTime = `${displayHour}:${minutes} ${ampm}`;
+
+                    let classes = 'time-slot';
+                    if (isBooked) classes += ' booked';
+                    if (isSelected) classes += ' selected';
+                    if (!isBooked) classes += ' available';
+
+                    html += `<button class="${classes}" data-time="${slot}" ${isBooked ? 'disabled' : ''} onclick="selectTime('${slot}', ${isBooked})">${displayTime}</button>`;
+                });
+
+                timeSlotsEl.innerHTML = html;
+            } catch (error) {
+                loadingEl.classList.add('hidden');
+                timeSlotsEl.innerHTML = '<p class="error">Error loading time slots. Please try again.</p>';
+            }
+        }
+
+        function selectTime(time, isBooked) {
+            if (isBooked) return;
+
+            selectedTime = time;
+
+            // Update UI
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+                if (slot.dataset.time === time) {
+                    slot.classList.add('selected');
+                }
+            });
+
+            goToStep(3);
+        }
+
+        function goToStep(step) {
+            // Validate before moving forward
+            if (step === 2 && !selectedDate) {
+                alert('Please select a date first.');
+                return;
+            }
+            if (step === 3 && !selectedTime) {
+                alert('Please select a time slot.');
+                return;
+            }
+            if (step === 4) {
+                if (!validateForm()) return;
+                updateSummary();
+            }
+
+            // Hide all steps
+            document.querySelectorAll('.booking-step').forEach(s => s.classList.add('hidden'));
+
+            // Show target step
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+
+            // Update progress
+            document.querySelectorAll('.progress-step').forEach(s => {
+                const stepNum = parseInt(s.dataset.step);
+                s.classList.remove('active', 'completed');
+                if (stepNum < step) s.classList.add('completed');
+                if (stepNum === step) s.classList.add('active');
+            });
+        }
+
+        function validateForm() {
+            const form = document.getElementById('booking-form');
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('service').value;
+
+            if (!firstName || !lastName || !email || !phone || !service) {
+                alert('Please fill in all required fields.');
+                return false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function updateSummary() {
+            const formattedDate = new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const [hours, minutes] = selectedTime.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            const formattedTime = `${displayHour}:${minutes} ${ampm}`;
+
+            document.getElementById('summary-date').textContent = formattedDate;
+            document.getElementById('summary-time').textContent = formattedTime;
+            document.getElementById('summary-service').textContent = document.getElementById('service').value;
+            document.getElementById('summary-name').textContent = `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`;
+            document.getElementById('summary-email').textContent = document.getElementById('email').value;
+            document.getElementById('summary-phone').textContent = document.getElementById('phone').value;
+        }
+
+        async function submitBooking() {
+            const confirmBtn = document.getElementById('confirm-booking');
+            const loadingEl = document.getElementById('booking-loading');
+
+            confirmBtn.disabled = true;
+            loadingEl.classList.remove('hidden');
+
+            const bookingData = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                service: document.getElementById('service').value,
+                date: selectedDate,
+                time: selectedTime,
+                notes: document.getElementById('notes').value.trim()
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/api/appointments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess(bookingData);
+                } else {
+                    throw new Error(data.error || 'Booking failed');
+                }
+            } catch (error) {
+                loadingEl.classList.add('hidden');
+                confirmBtn.disabled = false;
+                alert(error.message || 'An error occurred. Please try again.');
+            }
+        }
+
+        function showSuccess(booking) {
+            // Hide all steps
+            document.querySelectorAll('.booking-step').forEach(s => s.classList.add('hidden'));
+
+            // Show success
+            document.getElementById('step-success').classList.remove('hidden');
+
+            // Update progress
+            document.querySelectorAll('.progress-step').forEach(s => s.classList.add('completed'));
+
+            const formattedDate = new Date(booking.date + 'T00:00:00').toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const [hours, minutes] = booking.time.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            const formattedTime = `${displayHour}:${minutes} ${ampm}`;
+
+            document.getElementById('confirmation-details').innerHTML = `
+                <p><strong>Date:</strong> ${formattedDate}</p>
+                <p><strong>Time:</strong> ${formattedTime}</p>
+                <p><strong>Service:</strong> ${booking.service}</p>
+            `;
+        }
+
+        // Calendar navigation
+        document.getElementById('prev-month').addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // Initialize
+        renderCalendar();
+    </script>
+</body>
+</html>
