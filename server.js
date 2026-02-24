@@ -167,16 +167,6 @@ async function initDatabase() {
     console.log('Database initialized');
 }
 
-// Debug route (before init middleware)
-app.get('/api/debug-env', (req, res) => {
-    res.json({
-        connectionString_set: !!connectionString,
-        all_db_keys: Object.keys(process.env).filter(k =>
-            k.includes('POSTGRES') || k.includes('DATABASE') || k.includes('SUPA')
-        )
-    });
-});
-
 // Lazy init — runs once on first request
 let initDone = false;
 async function ensureInit() {
