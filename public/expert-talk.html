@@ -161,56 +161,6 @@
             100% { box-shadow: 0 0 0 0 rgba(255,59,59,0); }
         }
 
-        /* Guests */
-        .guests { background: radial-gradient(900px 500px at 15% 0%, rgba(43,124,245,.14), transparent 60%), var(--bg-2); }
-        .guests-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
-        .guest-grid {
-            display: grid; grid-template-columns: 1.35fr 1fr; gap: 26px; margin-top: 48px;
-        }
-        .guest-card {
-            position: relative; border-radius: 22px; overflow: hidden;
-            background: var(--bg-3); border: 1px solid var(--line);
-            box-shadow: 0 30px 70px rgba(0,0,0,.45);
-            isolation: isolate;
-        }
-        .guest-card::before {
-            content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-            border-radius: inherit;
-            background: linear-gradient(180deg, rgba(8,13,24,0) 45%, rgba(8,13,24,.92) 100%);
-        }
-        .guest-card::after {
-            content: ''; position: absolute; inset: 14px; z-index: 2; pointer-events: none;
-            border: 1px solid rgba(255,255,255,.12); border-radius: 14px;
-            transition: border-color .3s ease;
-        }
-        .guest-card:hover::after { border-color: rgba(43,124,245,.6); }
-        .guest-card img {
-            width: 100%; height: 100%; min-height: 420px; object-fit: cover;
-            transition: transform .8s cubic-bezier(.2,.7,.2,1);
-        }
-        .guest-card:hover img { transform: scale(1.045); }
-        .guest-card .tag {
-            position: absolute; top: 26px; left: 26px; z-index: 3;
-            font-family: var(--font-head); font-size: 0.66rem; font-weight: 700;
-            letter-spacing: 0.22em; text-transform: uppercase;
-            background: var(--blue); color: #fff; padding: 8px 14px; border-radius: 999px;
-        }
-        .guest-card .tag.silver { background: rgba(255,255,255,.9); color: var(--bg); }
-        .guest-card .cap { position: absolute; left: 30px; right: 30px; bottom: 28px; z-index: 3; }
-        .guest-card .cap h3 { font-size: 1.35rem; font-weight: 800; color: #fff; text-transform: uppercase; }
-        .guest-card .cap p { color: var(--silver); font-size: 0.95rem; margin-top: 6px; }
-        .guest-card.feature img { object-position: 50% 45%; }
-        .guest-card.side img { object-position: 45% 30%; }
-        .guest-stats {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px;
-        }
-        .stat {
-            border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px;
-            background: rgba(255,255,255,.02);
-        }
-        .stat b { font-family: var(--font-head); font-size: 1.7rem; font-weight: 800; color: #fff; display: block; }
-        .stat span { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-
         /* About / host */
         .about-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
         .about-photo { position: relative; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); }
@@ -323,16 +273,114 @@
             .hero-copy { padding-top: 12px; }
             .guest-grid { grid-template-columns: 1fr; }
             .guest-card img { min-height: 320px; max-height: 560px; }
-            .guest-stats { grid-template-columns: 1fr 1fr; }
             .about-grid { grid-template-columns: 1fr; }
             .about-photo { max-width: 460px; }
         }
         @media (max-width: 560px) {
             .brand-text small { display: none; }
             .header .btn { padding: 10px 16px; font-size: 0.72rem; }
-            .guest-stats { grid-template-columns: 1fr; }
             .guest-card .cap { left: 22px; right: 22px; bottom: 22px; }
             .hero-badge { right: 20px; bottom: 20px; }
+        }
+        .pkg-grid-2 { grid-template-columns: 1fr 1fr; max-width: 1040px; margin-left: auto; margin-right: auto; }
+        .pkg .k.inc { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); color: #fff; }
+        .pkg .k.inc + ul { border-top: 0; padding-top: 0; margin-top: 14px; }
+        .pkg .ideal { font-style: italic; color: var(--silver); border-left: 2px solid var(--blue); padding-left: 14px; }
+        @media (max-width: 1024px) { .pkg-grid-2 { grid-template-columns: 1fr; max-width: 620px; } }
+        /* Hero (proposal cover) */
+        .hero-kicker { font-family: var(--font-head); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); margin-bottom: 18px; }
+        .hero-kicker b { color: #fff; }
+
+        /* Price summary (closing page) */
+        .price-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 44px auto 0; max-width: 960px; }
+        .price-row {
+            border: 1px solid var(--line); border-radius: 18px; padding: 26px 24px; text-align: left;
+            background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+            display: flex; flex-direction: column; gap: 6px;
+        }
+        .price-row.hi { border-color: rgba(43,124,245,.6); box-shadow: 0 20px 60px rgba(43,124,245,.18); }
+        .price-row span { font-family: var(--font-head); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--silver); }
+        .price-row b { font-family: var(--font-head); font-size: 2.1rem; font-weight: 900; color: #fff; line-height: 1; }
+        .price-row.hi b { color: var(--blue); }
+
+        /* Guests (bottom gallery) */
+        .guests { background: var(--bg-2); overflow: hidden; }
+        .guests::before {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(800px 420px at 20% 10%, rgba(43,124,245,.16), transparent 60%),
+                        radial-gradient(700px 400px at 90% 100%, rgba(43,124,245,.12), transparent 60%);
+        }
+        .guests-mark {
+            position: absolute; right: -0.05em; top: 28px; z-index: 0; pointer-events: none;
+            font-family: var(--font-head); font-weight: 900; font-size: clamp(6rem, 18vw, 16rem);
+            line-height: 1; letter-spacing: -0.03em; text-transform: uppercase;
+            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.07);
+        }
+        .guests .wrap { position: relative; z-index: 1; }
+        .guests-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+        .guest-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 24px; margin-top: 52px; }
+        .guest-card {
+            position: relative; border-radius: 24px; overflow: hidden; isolation: isolate;
+            background: var(--bg-3); border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 40px 90px rgba(0,0,0,.5), 0 0 0 1px rgba(43,124,245,.08);
+        }
+        .guest-card::before {
+            content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            background: linear-gradient(180deg, rgba(8,13,24,.08) 0%, rgba(8,13,24,0) 35%, rgba(8,13,24,.94) 100%);
+        }
+        .guest-card .frame {
+            position: absolute; inset: 16px; z-index: 2; pointer-events: none; border-radius: 16px;
+            border: 1px solid rgba(255,255,255,.14); transition: border-color .4s ease, inset .4s ease;
+        }
+        .guest-card .frame::before, .guest-card .frame::after {
+            content: ''; position: absolute; width: 26px; height: 26px; border-color: var(--blue); border-style: solid;
+        }
+        .guest-card .frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; border-top-left-radius: 16px; }
+        .guest-card .frame::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-bottom-right-radius: 16px; }
+        .guest-card:hover .frame { border-color: rgba(43,124,245,.55); }
+        .guest-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 1s cubic-bezier(.2,.7,.2,1), filter .6s ease;
+            filter: saturate(1.02);
+        }
+        .guest-card:hover img { transform: scale(1.05); }
+        .guest-card.feature { min-height: 520px; }
+        .guest-card.feature img { object-position: 50% 42%; }
+        .guest-card.side { min-height: 520px; }
+        .guest-card.side img { object-position: 50% 35%; }
+        .guest-card .tag {
+            position: absolute; top: 30px; left: 30px; z-index: 3;
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-head); font-size: 0.64rem; font-weight: 800;
+            letter-spacing: 0.24em; text-transform: uppercase;
+            background: rgba(8,13,24,.7); border: 1px solid rgba(255,255,255,.16); color: #fff;
+            backdrop-filter: blur(8px); padding: 9px 14px; border-radius: 999px;
+        }
+        .guest-card .tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 12px var(--blue); }
+        .guest-card .cap { position: absolute; left: 34px; right: 34px; bottom: 32px; z-index: 3; }
+        .guest-card .cap::before { content: ''; display: block; width: 44px; height: 3px; background: var(--blue); margin-bottom: 14px; border-radius: 2px; }
+        .guest-card .cap h3 { font-size: 1.45rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.02em; }
+        .guest-card .cap p { color: var(--silver); font-size: 0.95rem; margin-top: 6px; max-width: 46ch; }
+        .guests-foot {
+            margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 30px;
+            font-family: var(--font-head); font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.26em; text-transform: uppercase; color: var(--silver);
+        }
+        .guests-foot span::before { content: '•'; color: var(--blue); margin-right: 14px; }
+        .guests-foot span:first-child::before { content: none; }
+
+        @media (max-width: 1024px) { .price-list { grid-template-columns: 1fr; max-width: 520px; } }
+        @media (max-width: 900px) {
+            .guest-grid { grid-template-columns: 1fr; }
+            .guest-card.feature, .guest-card.side { min-height: 0; }
+            .guest-card.feature img { aspect-ratio: 8/7; }
+            .guest-card.side img { aspect-ratio: 4/3; }
+            .guests-mark { top: 8px; }
+        }
+        @media (max-width: 560px) {
+            .guest-card .cap { left: 24px; right: 24px; bottom: 24px; }
+            .guest-card .tag { top: 22px; left: 22px; }
+            .guest-card .frame { inset: 10px; }
         }
     </style>
 </head>
@@ -345,28 +393,29 @@
                 <span class="brand-text"><b>Expert Talk</b><small>with Edgar</small></span>
             </a>
             <nav class="nav" aria-label="Page">
+                <a href="#about">Overview</a>
+                <a href="#focus">Program</a>
+                <a href="#reach">Distribution</a>
+                <a href="#packages">Packages</a>
                 <a href="#guests">Guests</a>
-                <a href="#about">The Show</a>
-                <a href="#focus">Focus</a>
-                <a href="#reach">Reach</a>
-                <a href="#packages">Partner</a>
             </nav>
-            <a href="#packages" class="btn btn-blue">Become a Guest</a>
+            <a href="#packages" class="btn btn-blue">Partner With Us</a>
         </div>
     </header>
 
     <main id="top">
 
-        <!-- Hero -->
+        <!-- Page 1: Cover -->
         <section class="hero">
             <div class="hero-grid">
                 <div class="wrap hero-copy">
                     <img class="hero-logo" src="images/expert-talk/logo.jpg" alt="Expert Talk with Edgar">
-                    <h1>A weekly platform <em>built for trust.</em></h1>
-                    <p>Expert Talk with Edgar is a weekly Horizon TV prime-time program featuring trusted experts in healthcare, law, business, and community services.</p>
+                    <div class="hero-kicker"><b>Horizon TV</b></div>
+                    <h1>Sponsorship &amp; <em>Partnership Proposal</em></h1>
+                    <p>A weekly prime-time platform connecting trusted experts with the Armenian community.</p>
                     <div class="hero-actions">
-                        <a href="#guests" class="btn btn-blue">Meet Our Guests</a>
-                        <a href="#packages" class="btn btn-ghost">Sponsorship</a>
+                        <a href="#packages" class="btn btn-blue">View Packages</a>
+                        <a href="#guests" class="btn btn-ghost">Meet the Guests</a>
                     </div>
                     <div class="hero-tags">
                         <span>Insight</span><span>Experience</span><span>Solutions</span>
@@ -379,71 +428,34 @@
             </div>
         </section>
 
-        <!-- Guests -->
-        <section class="guests" id="guests">
-            <div class="wrap">
-                <div class="guests-head reveal">
-                    <div>
-                        <div class="eyebrow">Our Guests</div>
-                        <h2 class="section-title">In the studio <span>with Edgar</span></h2>
-                    </div>
-                    <p class="lead">Trusted guests from healthcare, law, business, and community services, sitting down for real conversations about the issues affecting Armenians in Los Angeles and beyond.</p>
-                </div>
-
-                <div class="guest-grid">
-                    <figure class="guest-card feature reveal">
-                        <span class="tag">Full Episode</span>
-                        <img src="images/expert-talk/studio-2.jpg" alt="Edgar and a guest at the Expert Talk studio table">
-                        <figcaption class="cap">
-                            <h3>On Set at Expert Talk</h3>
-                            <p>A 30-minute, in-studio conversation recorded for Horizon TV prime time.</p>
-                        </figcaption>
-                    </figure>
-                    <figure class="guest-card side reveal">
-                        <span class="tag silver">Behind the Scenes</span>
-                        <img src="images/expert-talk/studio-1.jpg" alt="Edgar and his guest smiling before recording">
-                        <figcaption class="cap">
-                            <h3>Before We Roll</h3>
-                            <p>Moments before recording, shared across Horizon TV and Edgar's social pages.</p>
-                        </figcaption>
-                    </figure>
-                </div>
-
-                <div class="guest-stats reveal">
-                    <div class="stat"><b>Weekly</b><span>Prime-time episodes</span></div>
-                    <div class="stat"><b>30 min</b><span>In-studio interviews</span></div>
-                    <div class="stat"><b>Uncut</b><span>Full episodes on YouTube</span></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About the show -->
+        <!-- Page 2: A weekly platform built for trust -->
         <section id="about">
             <div class="wrap about-grid">
                 <div class="about-photo reveal">
                     <img src="images/expert-talk/edgar-portrait.jpg" alt="Edgar Ayvazyan">
-                    <div class="name"><b>Edgar Ayvazyan</b><span>Host · Executive Producer · Media &amp; PR Strategist</span></div>
+                    <div class="name"><b>Edgar Ayvazyan</b><span>Executive Producer, Media &amp; PR Strategist</span></div>
                 </div>
                 <div class="about-copy reveal">
-                    <div class="eyebrow">The Show</div>
-                    <h2 class="section-title">Where expertise <span>meets community</span></h2>
-                    <p>Hosted by <strong>Edgar Ayvazyan</strong>, Executive Producer, Media &amp; PR Strategist, and a producer of high-profile Armenian-American medical magazines, awards, and entertainment productions.</p>
+                    <div class="eyebrow">02</div>
+                    <h2 class="section-title">A weekly platform <span>built for trust</span></h2>
+                    <p>Expert Talk with Edgar is a weekly Horizon TV prime-time program featuring trusted experts in healthcare, law, business, and community services.</p>
                     <ul class="checks">
-                        <li>Trusted guests from healthcare, law, business, and community services.</li>
+                        <li>Trusted guests from healthcare, law, business, and community services</li>
                         <li>Real-world issues affecting Armenians in Los Angeles.</li>
                         <li>Stronger professional and cultural connections between Armenia and the diaspora.</li>
                     </ul>
+                    <p>Hosted by <strong>Edgar Ayvazyan</strong>, Executive Producer, Media &amp; PR Strategist, and a producer of high-profile Armenian-American medical magazines, awards, and entertainment productions.</p>
                     <div class="note">Full episodes remain available uncut on Horizon TV's YouTube channel.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Program focus -->
+        <!-- Page 3: Program focus -->
         <section class="pillars" id="focus">
             <div class="wrap">
                 <div class="reveal">
                     <div class="eyebrow">Program Focus</div>
-                    <h2 class="section-title">Three pillars <span>with lasting relevance</span></h2>
+                    <h2 class="section-title">Three content pillars <span>with lasting relevance</span></h2>
                 </div>
                 <div class="pillar-grid">
                     <div class="pillar reveal">
@@ -453,7 +465,7 @@
                             <li>Access to trusted professionals</li>
                             <li>Medical tourism connections</li>
                             <li>Healthcare services and technology</li>
-                            <li>Mental health and psychology</li>
+                            <li>Mental health and psychology.</li>
                         </ul>
                     </div>
                     <div class="pillar reveal">
@@ -463,7 +475,7 @@
                             <li>Immigration and residency</li>
                             <li>Business formation and investment</li>
                             <li>Real estate transactions</li>
-                            <li>Labor and employment law</li>
+                            <li>Labor and employment law.</li>
                         </ul>
                     </div>
                     <div class="pillar reveal">
@@ -473,14 +485,14 @@
                             <li>Trust between experts and community</li>
                             <li>Accessible, practical information</li>
                             <li>Education and empowerment</li>
-                            <li>Armenia–diaspora connection</li>
+                            <li>Armenia-diaspora connection.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Distribution -->
+        <!-- Page 4: Distribution -->
         <section id="reach">
             <div class="wrap">
                 <div class="reveal">
@@ -512,15 +524,14 @@
             </div>
         </section>
 
-        <!-- Packages -->
+        <!-- Pages 5 & 6: Packages -->
         <section class="packages" id="packages">
             <div class="wrap">
                 <div class="reveal">
-                    <div class="eyebrow">Sponsorship &amp; Partnership</div>
-                    <h2 class="section-title">Partner with <span>Expert Talk</span></h2>
-                    <p class="lead">A long-term media platform connecting healthcare, legal, and business communities across Los Angeles, Armenia, and the Armenian diaspora.</p>
+                    <div class="eyebrow">Sponsorship Proposal</div>
+                    <h2 class="section-title">Partnership <span>packages</span></h2>
                 </div>
-                <div class="pkg-grid">
+                <div class="pkg-grid pkg-grid-2">
                     <div class="pkg featured reveal">
                         <div class="ribbon">Premier</div>
                         <div class="k">Premier Partnership</div>
@@ -528,17 +539,17 @@
                         <div class="price">$9,000</div>
                         <div class="meta">3 months &nbsp;|&nbsp; 12 episodes</div>
                         <p>A full-funnel media partnership combining repeated television exposure, expert positioning, social distribution, and original content production.</p>
+                        <div class="k inc">What's Included</div>
                         <ul>
                             <li>Three guest appearances (one per month) in 30-minute, in-studio episodes of Expert Talk.</li>
                             <li>Behind-the-scenes stories and photos shared across Horizon TV and Edgar's social media pages.</li>
-                            <li>Full episodes air six times on Horizon TV and are shared on Facebook and Horizon TV's YouTube channel.</li>
-                            <li>3 professionally edited highlight reels from the episodes.</li>
-                            <li>One professionally shot and edited 30-second TV commercial, filmed at the client's location.</li>
+                            <li>The full episodes will air six times on Horizon TV and be shared on Facebook and Horizon TV's YouTube channel.</li>
+                            <li>3 professionally edited highlight reels from the episodes, shared across Horizon TV and Edgar's social media pages.</li>
+                            <li>One professionally shot and edited 30 second TV commercial, filmed at the client's location.</li>
                             <li>15 commercial spots daily on Horizon TV for 3 months.</li>
-                            <li>One professionally filmed 1-minute reel featuring Edgar at the client's location.</li>
-                            <li>6 Instagram Story reposts of the client's content.</li>
+                            <li>One professionally filmed and edited 1 minute reel featuring Edgar at the client's location.</li>
+                            <li>6 Instagram Story reposts of the client's content shared across Horizon TV and Edgar's social media pages.</li>
                         </ul>
-                        <a href="#contact" class="btn btn-blue">Become General Sponsor</a>
                     </div>
                     <div class="pkg reveal">
                         <div class="k">Three-Month Visibility</div>
@@ -546,46 +557,73 @@
                         <div class="price">$6,000</div>
                         <div class="meta">3 months</div>
                         <p>A strong visibility package for organizations that want an expert appearance, sustained TV frequency, and cross-platform distribution.</p>
+                        <div class="k inc">What's Included</div>
                         <ul>
                             <li>One featured guest appearance in a 30-minute in-studio episode of Expert Talk.</li>
                             <li>Behind-the-scenes stories and photos shared across Horizon TV and Edgar's social media pages.</li>
-                            <li>The full episode airs three times on Horizon TV and is shared on Facebook and Horizon TV's YouTube channel.</li>
+                            <li>The full episode will air three times on Horizon TV and be shared on Facebook and Horizon TV's YouTube channel.</li>
                             <li>9 commercial spots daily on Horizon TV for 3 months.</li>
-                            <li>1 professionally edited highlight reel from the episode.</li>
-                            <li>3 Instagram Story reposts of the client's content.</li>
+                            <li>1 professionally edited highlight reels from the episode, shared across Horizon TV and Edgar's social media pages.</li>
+                            <li>3 Instagram Story reposts of the client's content shared across Horizon TV and Edgar's social media pages.</li>
                         </ul>
-                        <a href="#contact" class="btn btn-ghost">Choose Sponsor</a>
-                    </div>
-                    <div class="pkg reveal">
-                        <div class="k">Single Appearance</div>
-                        <h3>Guest Interview</h3>
-                        <div class="price">$1,500</div>
-                        <div class="meta">One episode</div>
-                        <p>Share your expertise with the community in a featured in-studio conversation with Edgar on Horizon TV prime time.</p>
-                        <ul>
-                            <li>One 30-minute in-studio episode of Expert Talk.</li>
-                            <li>Broadcast on Horizon TV prime time.</li>
-                            <li>Full episode available on YouTube and Facebook.</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-ghost">Book an Interview</a>
+                        <p class="ideal">Ideal for organizations seeking a featured expert appearance, sustained TV visibility, and ongoing cross-platform promotion.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="cta" id="contact">
+        <!-- Page 7: Closing -->
+        <section class="cta" id="connect">
             <div class="wrap reveal">
                 <img src="images/expert-talk/logo.jpg" alt="Expert Talk with Edgar">
                 <h2>Connect expertise <br>with community</h2>
-                <p>Join the conversation. Bring your expertise to a prime-time audience that trusts the source.</p>
-                <div class="hero-actions">
-                    <!-- TODO: replace # with your contact email or booking link -->
-                    <a href="#" class="btn btn-blue">Get in Touch</a>
-                    <a href="#guests" class="btn btn-ghost">See the Studio</a>
+                <p>A long-term media platform connecting healthcare, legal, and business communities across Los Angeles, Armenia, and the Armenian diaspora.</p>
+                <div class="price-list">
+                    <div class="price-row hi"><span>General Sponsor</span><b>$9,000</b></div>
+                    <div class="price-row"><span>Sponsor</span><b>$6,000</b></div>
+                    <div class="price-row"><span>Guest Interview</span><b>$1,500</b></div>
                 </div>
                 <div class="hero-tags">
                     <span>Horizon TV Prime Time</span><span>YouTube</span><span>Facebook</span><span>Instagram</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guests -->
+        <section class="guests" id="guests">
+            <div class="guests-mark" aria-hidden="true">Guests</div>
+            <div class="wrap">
+                <div class="guests-head reveal">
+                    <div>
+                        <div class="eyebrow">Our Guests</div>
+                        <h2 class="section-title">In the studio <span>with Edgar</span></h2>
+                    </div>
+                    <p class="lead">Trusted guests from healthcare, law, business, and community services.</p>
+                </div>
+
+                <div class="guest-grid">
+                    <figure class="guest-card feature reveal">
+                        <span class="tag"><i></i>In the Studio</span>
+                        <span class="frame"></span>
+                        <img src="images/expert-talk/studio-2.jpg" alt="Edgar and a guest at the Expert Talk studio table">
+                        <figcaption class="cap">
+                            <h3>Expert Talk with Edgar</h3>
+                            <p>Horizon TV prime time</p>
+                        </figcaption>
+                    </figure>
+                    <figure class="guest-card side reveal">
+                        <span class="tag"><i></i>Behind the Scenes</span>
+                        <span class="frame"></span>
+                        <img src="images/expert-talk/studio-1.jpg" alt="Edgar and his guest before recording">
+                        <figcaption class="cap">
+                            <h3>Behind the Scenes</h3>
+                            <p>Stories and photos shared across Horizon TV and Edgar's social media pages.</p>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="guests-foot reveal">
+                    <span>Insight</span><span>Experience</span><span>Solutions</span>
                 </div>
             </div>
         </section>
@@ -593,13 +631,12 @@
 
     <footer class="footer">
         <div class="wrap footer-inner">
-            <div><b>Expert Talk with Edgar</b> &nbsp;·&nbsp; Insight. Experience. Solutions.</div>
+            <div><b>Expert Talk with Edgar</b> &nbsp;·&nbsp; Sponsorship Proposal</div>
             <div class="footer-links">
+                <a href="#packages">Packages</a>
                 <a href="#guests">Guests</a>
-                <a href="#packages">Partner</a>
-                <a href="index.html">Bright Smile Dental</a>
             </div>
-            <div>&copy; 2026 Horizon TV. All rights reserved.</div>
+            <div><b>Horizon TV</b></div>
         </div>
     </footer>
 
