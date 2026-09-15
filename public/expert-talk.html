@@ -303,6 +303,52 @@
         .price-row b { font-family: var(--font-head); font-size: 2.1rem; font-weight: 900; color: #fff; line-height: 1; }
         .price-row.hi b { color: var(--blue); }
 
+        /* Contact form */
+        .contact { background: var(--bg-2); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+        .contact-info p { color: var(--muted); font-size: 1.05rem; margin-top: 16px; max-width: 46ch; }
+        .contact-email {
+            display: inline-flex; align-items: center; gap: 12px; margin-top: 28px;
+            font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: #fff;
+            padding: 14px 20px; border: 1px solid var(--line); border-radius: 14px;
+            background: rgba(255,255,255,.03); transition: border-color .2s ease, background .2s ease;
+            word-break: break-all;
+        }
+        .contact-email:hover { border-color: rgba(43,124,245,.6); background: var(--blue-soft); }
+        .contact-email svg { flex: none; width: 20px; height: 20px; color: var(--blue); }
+        .contact-form {
+            border: 1px solid var(--line); border-radius: 24px; padding: clamp(24px, 4vw, 44px);
+            background: linear-gradient(180deg, rgba(43,124,245,.10), rgba(43,124,245,0) 45%), var(--bg);
+            box-shadow: 0 30px 80px rgba(0,0,0,.45);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .field label { font-family: var(--font-head); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--silver); }
+        .field input, .field select, .field textarea {
+            font: inherit; color: #fff; background: rgba(255,255,255,.04);
+            border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; outline: none;
+            transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+        .field select { appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2397a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; padding-right: 42px; }
+        .field select option { background: var(--bg-3); color: #fff; }
+        .field textarea { min-height: 140px; resize: vertical; }
+        .field input::placeholder, .field textarea::placeholder { color: rgba(151,163,184,.7); }
+        .field input:focus, .field select:focus, .field textarea:focus {
+            border-color: var(--blue); box-shadow: 0 0 0 4px rgba(43,124,245,.18); background: rgba(255,255,255,.06);
+        }
+        .hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+        .form-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+        .form-foot small { color: var(--muted); font-size: 0.85rem; }
+        .contact-form .btn { cursor: pointer; }
+        .contact-form .btn[disabled] { opacity: .6; cursor: default; transform: none; }
+        .form-status { margin-top: 18px; padding: 14px 18px; border-radius: 12px; font-size: 0.95rem; display: none; }
+        .form-status.ok { display: block; background: rgba(46, 204, 113, .12); border: 1px solid rgba(46, 204, 113, .4); color: #d8ffe6; }
+        .form-status.err { display: block; background: rgba(255, 82, 82, .12); border: 1px solid rgba(255, 82, 82, .4); color: #ffe0e0; }
+        @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
         /* Guests (bottom gallery) */
         .guests { background: var(--bg-2); overflow: hidden; }
         .guests::before {
@@ -398,8 +444,9 @@
                 <a href="#reach">Distribution</a>
                 <a href="#packages">Packages</a>
                 <a href="#guests">Guests</a>
+                <a href="#contact">Contact</a>
             </nav>
-            <a href="#packages" class="btn btn-blue">Partner With Us</a>
+            <a href="#contact" class="btn btn-blue">Partner With Us</a>
         </div>
     </header>
 
@@ -589,6 +636,60 @@
             </div>
         </section>
 
+        <!-- Contact -->
+        <section class="contact" id="contact">
+            <div class="wrap contact-grid">
+                <div class="contact-info reveal">
+                    <div class="eyebrow">Contact</div>
+                    <h2 class="section-title">Let's <span>talk</span></h2>
+                    <p>Interested in sponsoring the show or joining Edgar as a guest? Send a message and we'll get back to you.</p>
+                    <a class="contact-email" href="mailto:Edgarayvazyann@gmail.com">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                        Edgarayvazyann@gmail.com
+                    </a>
+                </div>
+                <form class="contact-form reveal" id="contact-form" novalidate>
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="cf-name">Name</label>
+                            <input id="cf-name" name="name" type="text" placeholder="Your full name" required autocomplete="name">
+                        </div>
+                        <div class="field">
+                            <label for="cf-email">Email</label>
+                            <input id="cf-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="cf-phone">Phone</label>
+                            <input id="cf-phone" name="phone" type="tel" placeholder="Optional" autocomplete="tel">
+                        </div>
+                        <div class="field">
+                            <label for="cf-interest">I'm interested in</label>
+                            <select id="cf-interest" name="interest">
+                                <option value="General Sponsor ($9,000)">General Sponsor · $9,000</option>
+                                <option value="Sponsor ($6,000)">Sponsor · $6,000</option>
+                                <option value="Guest Interview ($1,500)">Guest Interview · $1,500</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="cf-message">Message</label>
+                        <textarea id="cf-message" name="message" placeholder="Tell us about your organization and what you have in mind." required></textarea>
+                    </div>
+                    <div class="hp" aria-hidden="true">
+                        <label>Company<input name="company" type="text" tabindex="-1" autocomplete="off"></label>
+                    </div>
+                    <div class="form-foot">
+                        <small>Messages go directly to Edgarayvazyann@gmail.com</small>
+                        <button type="submit" class="btn btn-blue">Send Message</button>
+                    </div>
+                    <div class="form-status" id="contact-status" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+
         <!-- Guests -->
         <section class="guests" id="guests">
             <div class="guests-mark" aria-hidden="true">Guests</div>
@@ -635,6 +736,7 @@
             <div class="footer-links">
                 <a href="#packages">Packages</a>
                 <a href="#guests">Guests</a>
+                <a href="#contact">Contact</a>
             </div>
             <div><b>Horizon TV</b></div>
         </div>
@@ -650,6 +752,53 @@
                 });
             }, { threshold: 0.12 });
             els.forEach(function (e) { io.observe(e); });
+        })();
+        (function () {
+            var form = document.getElementById('contact-form');
+            if (!form) return;
+            var status = document.getElementById('contact-status');
+            var btn = form.querySelector('button[type="submit"]');
+            var TO = 'Edgarayvazyann@gmail.com';
+
+            function show(kind, text) { status.className = 'form-status ' + kind; status.textContent = text; }
+            function data() {
+                var d = {};
+                ['name', 'email', 'phone', 'interest', 'message', 'company'].forEach(function (k) {
+                    var el = form.elements[k]; d[k] = el ? el.value.trim() : '';
+                });
+                return d;
+            }
+            function mailtoFallback(d) {
+                var subject = 'Expert Talk inquiry: ' + (d.interest || 'General') + ' - ' + d.name;
+                var body = 'Name: ' + d.name + '\nEmail: ' + d.email + '\nPhone: ' + (d.phone || '-') +
+                           '\nInterest: ' + (d.interest || '-') + '\n\n' + d.message;
+                window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var d = data();
+                if (!d.name || !d.email || !d.message) { show('err', 'Please fill in your name, email and message.'); return; }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { show('err', 'Please enter a valid email address.'); return; }
+                btn.disabled = true; btn.textContent = 'Sending…'; status.className = 'form-status';
+
+                fetch('/api/expert-talk/contact', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d)
+                }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+                .then(function (res) {
+                    if (res.ok && res.j.success && res.j.delivered) {
+                        show('ok', 'Thank you! Your message has been sent. Edgar will be in touch soon.');
+                        form.reset();
+                    } else {
+                        // Server could not deliver: hand off to the visitor's email app instead.
+                        show('ok', 'Opening your email app to send this to ' + TO + '.');
+                        mailtoFallback(d);
+                    }
+                }).catch(function () {
+                    show('ok', 'Opening your email app to send this to ' + TO + '.');
+                    mailtoFallback(d);
+                }).finally(function () { btn.disabled = false; btn.textContent = 'Send Message'; });
+            });
         })();
     </script>
 </body>

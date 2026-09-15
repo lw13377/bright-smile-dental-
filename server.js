@@ -160,6 +160,63 @@ async function initDatabase() {
     console.log('Database initialized');
 }
 
+// Expert Talk contact form
+const EXPERT_TALK_CONTACT_EMAIL = 'Edgarayvazyann@gmail.com';
+let contactTransporter;
+
+function getContactTransporter() {
+    if (contactTransporter) return contactTransporter;
+    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+    if (SMTP_HOST && SMTP_USER && SMTP_PASS) {
+        contactTransporter = nodemailer.createTransport({
+            host: SMTP_HOST,
+            port: parseInt(SMTP_PORT || '587'),
+            secure: (SMTP_PORT || '587') === '465',
+            auth: { user: SMTP_USER, pass: SMTP_PASS }
+        });
+        return contactTransporter;
+    }
+    return transporter || null; // falls back to the test transport once initialized (preview only)
+}
+
+app.post('/api/expert-talk/contact', async (req, res) => {
+    try {
+        const { name, email, phone, interest, message, company } = req.body || {};
+        if (company) return res.json({ success: true, delivered: false }); // honeypot
+        if (!name || !email || !message) {
+            return res.status(400).json({ error: 'Name, email and message are required' });
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
+            return res.status(400).json({ error: 'Please enter a valid email address' });
+        }
+        const clean = v => String(v || '').slice(0, 2000).replace(/[<>]/g, '');
+        const t = getContactTransporter();
+        if (!t) return res.status(503).json({ error: 'Email is not configured', delivered: false });
+
+        const usingRealSmtp = !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+        const info = await t.sendMail({
+            from: `"Expert Talk Website" <${process.env.SMTP_FROM || process.env.SMTP_USER || 'noreply@experttalk.local'}>`,
+            to: EXPERT_TALK_CONTACT_EMAIL,
+            replyTo: `${clean(name)} <${clean(email)}>`,
+            subject: `Expert Talk inquiry: ${clean(interest) || 'General'} - ${clean(name)}`,
+            text: [
+                `Name: ${clean(name)}`,
+                `Email: ${clean(email)}`,
+                `Phone: ${clean(phone) || '-'}`,
+                `Interest: ${clean(interest) || '-'}`,
+                '',
+                clean(message)
+            ].join('\n')
+        });
+        const previewUrl = nodemailer.getTestMessageUrl(info);
+        if (previewUrl) console.log('Contact email preview:', previewUrl);
+        res.json({ success: true, delivered: usingRealSmtp });
+    } catch (error) {
+        console.error('Contact email error:', error);
+        res.status(500).json({ error: 'Failed to send message', delivered: false });
+    }
+});
+
 // Lazy init — runs once on first request
 let initDone = false;
 async function ensureInit() {
