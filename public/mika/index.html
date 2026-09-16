@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mika Turns 11</title>
+<meta name="description" content="You're invited! Mika's 11th birthday party, Saturday at 3 PM at the Cube. RSVP by Friday.">
+<meta property="og:title" content="Mika Turns 11 — You're Invited!">
+<meta property="og:description" content="Saturday, 3 PM at the Cube. RSVP by Friday.">
+<meta property="og:image" content="poster.jpg">
+<meta name="theme-color" content="#0f2a44">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎉</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f2a44;
+    --water: #2a7fc1;
+    --water-light: #9fd3f5;
+    --fire: #e8492b;
+    --earth: #7fa64a;
+    --air: #f5b942;
+    --paper: #fff8ec;
+    --text: #1d2b3a;
+    --muted: #55677a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito', system-ui, sans-serif;
+    color: var(--text);
+    background: var(--ink);
+    background-image:
+      radial-gradient(60vw 60vw at 10% 0%, rgba(42,127,193,.55), transparent 60%),
+      radial-gradient(50vw 50vw at 95% 10%, rgba(232,73,43,.45), transparent 60%),
+      radial-gradient(60vw 60vw at 80% 95%, rgba(127,166,74,.45), transparent 60%),
+      radial-gradient(50vw 50vw at 5% 90%, rgba(245,185,66,.4), transparent 60%);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 24px 16px 64px; }
+
+  /* Poster */
+  .poster {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 4px rgba(255,255,255,.12);
+    animation: rise .9s ease-out both;
+  }
+  .poster img { display: block; width: 100%; height: auto; }
+  .badge {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--paper); color: var(--fire);
+    font-family: 'Bangers', cursive; letter-spacing: 1px;
+    font-size: 1.15rem; padding: 6px 14px; border-radius: 999px;
+    transform: rotate(-4deg);
+    box-shadow: 0 6px 18px rgba(0,0,0,.3);
+    animation: pop 1.2s .6s ease-out both;
+  }
+
+  /* Card */
+  .card {
+    background: var(--paper);
+    border-radius: 22px;
+    margin-top: 20px;
+    padding: 28px 22px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    animation: rise .9s .15s ease-out both;
+  }
+  h1 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--ink);
+    text-align: center;
+  }
+  h1 span { color: var(--fire); }
+  .tagline {
+    text-align: center; color: var(--muted); font-weight: 600;
+    margin-top: 8px; font-size: 1.05rem;
+  }
+
+  .details { list-style: none; margin-top: 26px; display: grid; gap: 12px; }
+  .details li {
+    display: flex; align-items: center; gap: 14px;
+    background: #fff; border-radius: 16px; padding: 14px 16px;
+    border-left: 6px solid var(--water);
+    box-shadow: 0 4px 14px rgba(15,42,68,.08);
+  }
+  .details li:nth-child(2) { border-left-color: var(--earth); }
+  .details li:nth-child(3) { border-left-color: var(--air); }
+  .details li:nth-child(4) { border-left-color: var(--fire); }
+  .icon {
+    flex: 0 0 46px; height: 46px; border-radius: 12px;
+    display: grid; place-items: center; font-size: 1.5rem;
+    background: var(--water-light);
+  }
+  .details li:nth-child(2) .icon { background: #d7e8c0; }
+  .details li:nth-child(3) .icon { background: #ffe6a8; }
+  .details li:nth-child(4) .icon { background: #ffd0c5; }
+  .label { font-size: .78rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 800; }
+  .value { font-size: 1.15rem; font-weight: 800; color: var(--ink); line-height: 1.25; }
+  .value small { display: block; font-size: .9rem; font-weight: 600; color: var(--muted); }
+
+  /* RSVP */
+  .rsvp {
+    margin-top: 26px; text-align: center;
+    background: linear-gradient(135deg, var(--ink), #1c4f7f);
+    color: #fff; border-radius: 18px; padding: 22px 18px;
+  }
+  .rsvp h2 { font-family: 'Bangers', cursive; letter-spacing: 2px; font-size: 1.9rem; }
+  .rsvp p { margin-top: 4px; color: var(--water-light); font-weight: 600; }
+  .btns { display: grid; gap: 10px; margin-top: 16px; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    text-decoration: none; font-weight: 800; font-size: 1.1rem;
+    padding: 15px 18px; border-radius: 14px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:active { transform: scale(.98); }
+  .btn-call { background: var(--air); color: var(--ink); box-shadow: 0 8px 20px rgba(245,185,66,.35); }
+  .btn-text { background: rgba(255,255,255,.12); color: #fff; border: 2px solid rgba(255,255,255,.35); }
+  .phone { font-family: 'Bangers', cursive; letter-spacing: 2px; font-size: 1.7rem; margin-top: 14px; display: block; color: #fff; text-decoration: none; }
+
+  .cal {
+    display: block; text-align: center; margin-top: 18px;
+    color: var(--water); font-weight: 800; text-decoration: none;
+  }
+  .cal:hover { text-decoration: underline; }
+
+  footer { text-align: center; color: rgba(255,255,255,.7); font-size: .9rem; margin-top: 26px; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  @keyframes pop { from { opacity: 0; transform: rotate(-4deg) scale(.4); } 70% { transform: rotate(-4deg) scale(1.12); } to { opacity: 1; transform: rotate(-4deg) scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .poster, .card, .badge { animation: none; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <div class="poster">
+    <img src="poster.jpg" alt="Mika as the Avatar, surrounded by Katara, Sokka, Toph and Zuko. Mika, Happy 11th Birthday!" width="1018" height="1545">
+    <span class="badge">You're invited!</span>
+  </div>
+
+  <section class="card">
+    <h1>Mika turns <span>11!</span></h1>
+    <p class="tagline">Everyone, clear your Saturday. It's party time.</p>
+
+    <ul class="details">
+      <li>
+        <span class="icon">📅</span>
+        <div><div class="label">When</div><div class="value">Saturday at 3:00 PM</div></div>
+      </li>
+      <li>
+        <span class="icon">📍</span>
+        <div><div class="label">Where</div><div class="value">The Cube</div></div>
+      </li>
+      <li>
+        <span class="icon">👟</span>
+        <div><div class="label">What to wear</div><div class="value">Comfortable clothes<small>Flat ground, no hills.</small></div></div>
+      </li>
+      <li>
+        <span class="icon">⏰</span>
+        <div><div class="label">RSVP by</div><div class="value">Friday</div></div>
+      </li>
+    </ul>
+
+    <div class="rsvp">
+      <h2>RSVP</h2>
+      <p>Let us know you're coming by Friday!</p>
+      <div class="btns">
+        <a class="btn btn-call" href="tel:+16105338510">📞 Call to RSVP</a>
+        <a class="btn btn-text" href="sms:+16105338510?&body=Hi!%20We%27ll%20be%20at%20Mika%27s%20birthday%20on%20Saturday%20at%203%20PM.%20Coming%3A%20">💬 Text to RSVP</a>
+      </div>
+      <a class="phone" href="tel:+16105338510">610-533-8510</a>
+    </div>
+
+    <a class="cal" id="cal" href="#" download="mika-birthday.ics">➕ Add to calendar</a>
+  </section>
+
+  <footer>Can't wait to celebrate with you! 🎂</footer>
+</main>
+
+<script>
+  // Build an .ics file for the next upcoming Saturday at 3:00 PM local time.
+  (function () {
+    var now = new Date();
+    var d = new Date(now);
+    d.setDate(now.getDate() + ((6 - now.getDay() + 7) % 7 || 7));
+    // If today is Saturday and it's still before 3 PM, use today.
+    if (now.getDay() === 6 && now.getHours() < 15) d = new Date(now);
+    d.setHours(15, 0, 0, 0);
+    var end = new Date(d.getTime() + 3 * 60 * 60 * 1000);
+    function fmt(x) {
+      var p = function (n) { return (n < 10 ? '0' : '') + n; };
+      return x.getFullYear() + p(x.getMonth() + 1) + p(x.getDate()) + 'T' + p(x.getHours()) + p(x.getMinutes()) + '00';
+    }
+    var ics = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Mika Birthday//EN',
+      'BEGIN:VEVENT',
+      'UID:mika-11-' + fmt(d) + '@invite',
+      'DTSTAMP:' + fmt(now),
+      'DTSTART:' + fmt(d),
+      'DTEND:' + fmt(end),
+      'SUMMARY:Mika\'s 11th Birthday',
+      'LOCATION:The Cube',
+      'DESCRIPTION:Wear comfortable clothes. No hills. RSVP by Friday: 610-533-8510',
+      'END:VEVENT', 'END:VCALENDAR'
+    ].join('\r\n');
+    var a = document.getElementById('cal');
+    a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  })();
+</script>
+</body>
+</html>
