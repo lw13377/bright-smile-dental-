@@ -181,37 +181,10 @@
       <a class="phone" href="tel:+16105338510">610-533-8510</a>
     </div>
 
-    <a class="cal" id="cal" href="#" download="mika-birthday.ics">➕ Add to calendar</a>
+    <a class="cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mika%27s+11th+Birthday&amp;dates=20260919T150000/20260919T180000&amp;location=Cube+VR+%26+Parties%2C+1203+S+Central+Ave%2C+Glendale%2C+CA&amp;details=Wear+comfortable+clothes.+No+hills.+RSVP+by+Friday%3A+610-533-8510" target="_blank" rel="noopener">➕ Add to Google Calendar</a>
   </section>
 
   <footer>Can't wait to celebrate with you! 🎂</footer>
 </main>
-
-<script>
-  // Calendar event for Saturday, September 19, 2026 at 3:00 PM local time.
-  (function () {
-    var now = new Date();
-    var d = new Date(2026, 8, 19, 15, 0, 0);
-    var end = new Date(d.getTime() + 3 * 60 * 60 * 1000);
-    function fmt(x) {
-      var p = function (n) { return (n < 10 ? '0' : '') + n; };
-      return x.getFullYear() + p(x.getMonth() + 1) + p(x.getDate()) + 'T' + p(x.getHours()) + p(x.getMinutes()) + '00';
-    }
-    var ics = [
-      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Mika Birthday//EN',
-      'BEGIN:VEVENT',
-      'UID:mika-11-' + fmt(d) + '@invite',
-      'DTSTAMP:' + fmt(now),
-      'DTSTART:' + fmt(d),
-      'DTEND:' + fmt(end),
-      'SUMMARY:Mika\'s 11th Birthday',
-      'LOCATION:Cube VR & Parties\\, 1203 S Central Ave\\, Glendale\\, CA',
-      'DESCRIPTION:Wear comfortable clothes. No hills. RSVP by Friday: 610-533-8510',
-      'END:VEVENT', 'END:VCALENDAR'
-    ].join('\r\n');
-    var a = document.getElementById('cal');
-    a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
-  })();
-</script>
 </body>
 </html>
