@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mika Turns 11</title>
-<meta name="description" content="You're invited! Mika's 11th birthday party, Saturday at 3 PM at the Cube. RSVP by Friday.">
+<meta name="description" content="You're invited! Mika's 11th birthday party, Saturday at 3 PM at Cube VR & Parties. RSVP by Friday.">
 <meta property="og:title" content="Mika Turns 11 — You're Invited!">
-<meta property="og:description" content="Saturday, 3 PM at the Cube. RSVP by Friday.">
+<meta property="og:description" content="Saturday, 3 PM at Cube VR & Parties. RSVP by Friday.">
 <meta property="og:image" content="poster.jpg">
 <meta name="theme-color" content="#0f2a44">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎉</text></svg>">
@@ -130,6 +130,8 @@
     color: var(--water); font-weight: 800; text-decoration: none;
   }
   .cal:hover { text-decoration: underline; }
+  .map { color: var(--water); text-decoration: none; font-weight: 800; }
+  .map:hover { text-decoration: underline; }
 
   footer { text-align: center; color: rgba(255,255,255,.7); font-size: .9rem; margin-top: 26px; }
 
@@ -157,7 +159,7 @@
       </li>
       <li>
         <span class="icon">📍</span>
-        <div><div class="label">Where</div><div class="value">The Cube</div></div>
+        <div><div class="label">Where</div><div class="value">Cube VR &amp; Parties<small><a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Cube+VR+%26+Parties" target="_blank" rel="noopener">Open in Maps ↗</a></small></div></div>
       </li>
       <li>
         <span class="icon">👟</span>
@@ -207,7 +209,7 @@
       'DTSTART:' + fmt(d),
       'DTEND:' + fmt(end),
       'SUMMARY:Mika\'s 11th Birthday',
-      'LOCATION:The Cube',
+      'LOCATION:Cube VR & Parties',
       'DESCRIPTION:Wear comfortable clothes. No hills. RSVP by Friday: 610-533-8510',
       'END:VEVENT', 'END:VCALENDAR'
     ].join('\r\n');
