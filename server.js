@@ -437,6 +437,7 @@ app.get('/before-after', (req, res) => res.sendFile(path.join(__dirname, 'public
 app.get('/book', (req, res) => res.sendFile(path.join(__dirname, 'public', 'book-appointment.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 app.get('/expert-talk', (req, res) => res.sendFile(path.join(__dirname, 'public', 'expert-talk.html')));
+app.get('/mika', (req, res) => res.sendFile(path.join(__dirname, 'public', 'mika', 'index.html')));
 
 // Export for Vercel serverless
 module.exports = app;
