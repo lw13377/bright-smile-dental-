@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Talk with Edgar - Insight. Experience. Solutions.</title>
+    <meta name="description" content="Expert Talk with Edgar is a weekly Horizon TV prime-time program featuring trusted experts in healthcare, law, business, and community services.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080d18;
+            --bg-2: #0d1524;
+            --bg-3: #121c30;
+            --line: rgba(160, 180, 210, 0.14);
+            --blue: #2b7cf5;
+            --blue-soft: rgba(43, 124, 245, 0.16);
+            --silver: #c5ccd8;
+            --text: #e9eef7;
+            --muted: #97a3b8;
+            --font-head: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+            --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            --gutter: clamp(20px, 5vw, 72px);
+            --max: 1240px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3 { font-family: var(--font-head); line-height: 1.1; letter-spacing: -0.01em; }
+
+        .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+        section { padding: clamp(64px, 9vw, 120px) 0; position: relative; }
+
+        .eyebrow {
+            font-family: var(--font-head);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 14px;
+        }
+        .eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 28px; height: 2px;
+            background: var(--blue);
+            vertical-align: middle;
+            margin-right: 12px;
+        }
+        .section-title {
+            font-size: clamp(1.9rem, 4vw, 3rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .section-title span { color: var(--blue); }
+        .lead { color: var(--muted); font-size: 1.05rem; max-width: 60ch; margin-top: 16px; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: var(--font-head); font-weight: 700; font-size: 0.82rem;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 15px 28px; border-radius: 999px; white-space: nowrap;
+            border: 1px solid transparent;
+            transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-blue { background: var(--blue); color: #fff; box-shadow: 0 10px 30px rgba(43,124,245,.35); }
+        .btn-blue:hover { background: #3d8bff; }
+        .btn-ghost { border-color: rgba(255,255,255,.25); color: #fff; }
+        .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.06); }
+
+        /* Header */
+        .header {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(8, 13, 24, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+        .header-inner {
+            display: flex; align-items: center; justify-content: space-between; gap: 24px;
+            height: 76px;
+        }
+        .brand { display: flex; align-items: center; gap: 14px; }
+        .brand img { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; }
+        .brand-text { font-family: var(--font-head); line-height: 1.05; }
+        .brand-text b { display: block; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .brand-text small { display: block; font-size: 0.68rem; letter-spacing: 0.22em; color: var(--silver); text-transform: uppercase; }
+        .nav { display: flex; gap: 30px; }
+        .nav a {
+            font-family: var(--font-head); font-size: 0.78rem; font-weight: 600;
+            letter-spacing: 0.14em; text-transform: uppercase; color: var(--silver);
+            padding: 6px 0; position: relative;
+        }
+        .nav a::after {
+            content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px;
+            background: var(--blue); transition: width .25s ease;
+        }
+        .nav a:hover { color: #fff; }
+        .nav a:hover::after { width: 100%; }
+        .header .btn { padding: 12px 22px; }
+
+        /* Hero */
+        .hero { padding: 0; overflow: hidden; }
+        .hero-grid {
+            display: grid; grid-template-columns: 1.05fr 1fr; align-items: center;
+            min-height: calc(100vh - 76px);
+        }
+        .hero-copy { padding: clamp(56px, 8vw, 110px) 0; }
+        .hero-logo { width: min(340px, 70%); border-radius: 18px; box-shadow: 0 30px 80px rgba(0,0,0,.55); margin-bottom: 36px; }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5.2vw, 4.2rem); font-weight: 900;
+            text-transform: uppercase; color: #fff; line-height: 1.02;
+        }
+        .hero h1 em { font-style: normal; color: var(--blue); }
+        .hero p { margin-top: 22px; font-size: 1.12rem; color: var(--muted); max-width: 52ch; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+        .hero-tags {
+            display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 44px;
+            font-family: var(--font-head); font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.26em; text-transform: uppercase; color: var(--silver);
+        }
+        .hero-tags span::before { content: '•'; color: var(--blue); margin-right: 12px; }
+        .hero-tags span:first-child::before { content: none; }
+        .hero-visual { position: relative; height: 100%; min-height: 520px; }
+        .hero-visual img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 20%; }
+        .hero-visual::before {
+            content: ''; position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(90deg, var(--bg) 0%, rgba(8,13,24,0) 35%),
+                        linear-gradient(0deg, var(--bg) 0%, rgba(8,13,24,0) 30%);
+        }
+        .hero-badge {
+            position: absolute; z-index: 2; right: var(--gutter); bottom: 40px;
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(8,13,24,.72); border: 1px solid var(--line);
+            backdrop-filter: blur(10px); padding: 12px 18px; border-radius: 12px;
+            font-family: var(--font-head); font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase;
+        }
+        .hero-badge i {
+            display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+            background: #ff3b3b; box-shadow: 0 0 0 0 rgba(255,59,59,.6);
+            animation: pulse 1.8s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,59,59,.6); }
+            70% { box-shadow: 0 0 0 10px rgba(255,59,59,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,59,59,0); }
+        }
+
+        /* About / host */
+        .about-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+        .about-photo { position: relative; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); }
+        .about-photo img { aspect-ratio: 4/5; object-fit: cover; object-position: 50% 15%; width: 100%; }
+        .about-photo .name {
+            position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 28px;
+            background: linear-gradient(0deg, rgba(8,13,24,.95), rgba(8,13,24,0));
+        }
+        .about-photo .name b { font-family: var(--font-head); font-size: 1.2rem; font-weight: 800; text-transform: uppercase; display: block; }
+        .about-photo .name span { color: var(--silver); font-size: 0.9rem; }
+        .about-copy p { color: var(--muted); font-size: 1.05rem; margin-top: 18px; }
+        .about-copy p strong { color: var(--text); font-weight: 600; }
+        .checks { list-style: none; margin-top: 26px; display: grid; gap: 14px; }
+        .checks li { display: flex; gap: 14px; align-items: flex-start; color: var(--text); }
+        .checks li::before {
+            content: ''; flex: none; width: 22px; height: 22px; margin-top: 2px; border-radius: 50%;
+            background: var(--blue-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232b7cf5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat;
+        }
+        .note { margin-top: 26px; padding: 16px 20px; border-left: 3px solid var(--blue); background: var(--blue-soft); border-radius: 0 12px 12px 0; color: #fff; font-weight: 500; }
+
+        /* Pillars */
+        .pillars { background: var(--bg-2); }
+        .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
+        .pillar {
+            border: 1px solid var(--line); border-radius: 20px; padding: 34px 30px;
+            background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+            transition: transform .25s ease, border-color .25s ease;
+        }
+        .pillar:hover { transform: translateY(-4px); border-color: rgba(43,124,245,.5); }
+        .pillar .num { font-family: var(--font-head); font-size: 2.4rem; font-weight: 900; color: var(--blue); line-height: 1; }
+        .pillar h3 { font-size: 1.15rem; font-weight: 800; text-transform: uppercase; margin-top: 18px; color: #fff; }
+        .pillar ul { list-style: none; margin-top: 16px; display: grid; gap: 8px; color: var(--muted); }
+        .pillar li::before { content: '—'; color: var(--blue); margin-right: 10px; }
+
+        /* Distribution */
+        .dist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
+        .dist {
+            border-radius: 20px; padding: 32px 30px; border: 1px solid var(--line); background: var(--bg-3);
+        }
+        .dist .k { font-family: var(--font-head); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--blue); }
+        .dist h3 { font-size: 1.25rem; font-weight: 800; margin-top: 12px; color: #fff; }
+        .dist p { color: var(--muted); margin-top: 12px; font-size: 0.98rem; }
+        .formula {
+            margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 22px;
+            font-family: var(--font-head); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase;
+        }
+        .formula span { padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.02); }
+        .formula b { color: var(--blue); font-size: 1.4rem; }
+
+        /* Packages */
+        .packages { background: var(--bg-2); }
+        .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; align-items: start; }
+        .pkg {
+            border: 1px solid var(--line); border-radius: 22px; padding: 36px 32px; background: var(--bg);
+            position: relative; overflow: hidden;
+        }
+        .pkg.featured { border-color: rgba(43,124,245,.6); box-shadow: 0 30px 80px rgba(43,124,245,.18); background: linear-gradient(180deg, rgba(43,124,245,.12), rgba(43,124,245,0) 40%), var(--bg); }
+        .pkg .ribbon {
+            position: absolute; top: 18px; right: -34px; transform: rotate(45deg);
+            background: var(--blue); color: #fff; font-family: var(--font-head); font-size: 0.62rem; font-weight: 800;
+            letter-spacing: 0.2em; text-transform: uppercase; padding: 6px 44px;
+        }
+        .pkg .k { font-family: var(--font-head); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--blue); }
+        .pkg h3 { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; margin-top: 10px; color: #fff; }
+        .pkg .price { font-family: var(--font-head); font-size: 3rem; font-weight: 900; color: #fff; margin-top: 18px; line-height: 1; }
+        .pkg .price small { font-size: 0.85rem; font-weight: 600; color: var(--muted); letter-spacing: 0.08em; margin-left: 8px; }
+        .pkg .meta { font-family: var(--font-head); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--silver); margin-top: 10px; }
+        .pkg p { color: var(--muted); margin-top: 16px; font-size: 0.98rem; }
+        .pkg ul { list-style: none; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); display: grid; gap: 12px; color: var(--text); font-size: 0.95rem; }
+        .pkg li { display: flex; gap: 12px; }
+        .pkg li::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); margin-top: 10px; }
+        .pkg .btn { width: 100%; justify-content: center; margin-top: 28px; }
+
+        /* CTA */
+        .cta { text-align: center; overflow: hidden; }
+        .cta::before {
+            content: ''; position: absolute; inset: 0; z-index: -1;
+            background: radial-gradient(700px 400px at 50% 100%, rgba(43,124,245,.28), transparent 70%);
+        }
+        .cta img { width: 180px; border-radius: 16px; margin: 0 auto 28px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+        .cta h2 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 900; text-transform: uppercase; color: #fff; }
+        .cta p { color: var(--muted); max-width: 62ch; margin: 18px auto 0; font-size: 1.08rem; }
+        .cta .hero-actions { justify-content: center; }
+        .cta .hero-tags { justify-content: center; }
+
+        /* Footer */
+        .footer { border-top: 1px solid var(--line); padding: 36px 0; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 0.85rem; }
+        .footer-inner b { color: #fff; font-family: var(--font-head); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8rem; }
+        .footer-links { display: flex; gap: 22px; }
+        .footer-links a:hover { color: #fff; }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.in { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .pillar-grid, .dist-grid, .pkg-grid { grid-template-columns: 1fr; }
+            .pkg-grid { max-width: 620px; margin-left: auto; margin-right: auto; }
+        }
+        @media (max-width: 900px) {
+            .nav { display: none; }
+            .hero-grid { grid-template-columns: 1fr; min-height: 0; }
+            .hero-visual { min-height: 460px; order: -1; }
+            .hero-visual::before {
+                background: linear-gradient(0deg, var(--bg) 0%, rgba(8,13,24,0) 45%);
+            }
+            .hero-copy { padding-top: 12px; }
+            .guest-grid { grid-template-columns: 1fr; }
+            .guest-card img { min-height: 320px; max-height: 560px; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-photo { max-width: 460px; }
+        }
+        @media (max-width: 560px) {
+            .brand-text small { display: none; }
+            .header .btn { padding: 10px 16px; font-size: 0.72rem; }
+            .guest-card .cap { left: 22px; right: 22px; bottom: 22px; }
+            .hero-badge { right: 20px; bottom: 20px; }
+        }
+        .pkg-grid-2 { grid-template-columns: 1fr 1fr; max-width: 1040px; margin-left: auto; margin-right: auto; }
+        .pkg .k.inc { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); color: #fff; }
+        .pkg .k.inc + ul { border-top: 0; padding-top: 0; margin-top: 14px; }
+        .pkg .ideal { font-style: italic; color: var(--silver); border-left: 2px solid var(--blue); padding-left: 14px; }
+        @media (max-width: 1024px) { .pkg-grid-2 { grid-template-columns: 1fr; max-width: 620px; } }
+        /* Hero (proposal cover) */
+        .hero-kicker { font-family: var(--font-head); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); margin-bottom: 18px; }
+        .hero-kicker b { color: #fff; }
+
+        /* Price summary (closing page) */
+        .price-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 44px auto 0; max-width: 960px; }
+        .price-row {
+            border: 1px solid var(--line); border-radius: 18px; padding: 26px 24px; text-align: left;
+            background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+            display: flex; flex-direction: column; gap: 6px;
+        }
+        .price-row.hi { border-color: rgba(43,124,245,.6); box-shadow: 0 20px 60px rgba(43,124,245,.18); }
+        .price-row span { font-family: var(--font-head); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--silver); }
+        .price-row b { font-family: var(--font-head); font-size: 2.1rem; font-weight: 900; color: #fff; line-height: 1; }
+        .price-row.hi b { color: var(--blue); }
+
+        /* Contact form */
+        .contact { background: var(--bg-2); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+        .contact-info p { color: var(--muted); font-size: 1.05rem; margin-top: 16px; max-width: 46ch; }
+        .contact-email {
+            display: inline-flex; align-items: center; gap: 12px; margin-top: 28px;
+            font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: #fff;
+            padding: 14px 20px; border: 1px solid var(--line); border-radius: 14px;
+            background: rgba(255,255,255,.03); transition: border-color .2s ease, background .2s ease;
+            word-break: break-all;
+        }
+        .contact-email:hover { border-color: rgba(43,124,245,.6); background: var(--blue-soft); }
+        .contact-email svg { flex: none; width: 20px; height: 20px; color: var(--blue); }
+        .contact-form {
+            border: 1px solid var(--line); border-radius: 24px; padding: clamp(24px, 4vw, 44px);
+            background: linear-gradient(180deg, rgba(43,124,245,.10), rgba(43,124,245,0) 45%), var(--bg);
+            box-shadow: 0 30px 80px rgba(0,0,0,.45);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .field label { font-family: var(--font-head); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--silver); }
+        .field input, .field select, .field textarea {
+            font: inherit; color: #fff; background: rgba(255,255,255,.04);
+            border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; outline: none;
+            transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+        .field select { appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2397a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; padding-right: 42px; }
+        .field select option { background: var(--bg-3); color: #fff; }
+        .field textarea { min-height: 140px; resize: vertical; }
+        .field input::placeholder, .field textarea::placeholder { color: rgba(151,163,184,.7); }
+        .field input:focus, .field select:focus, .field textarea:focus {
+            border-color: var(--blue); box-shadow: 0 0 0 4px rgba(43,124,245,.18); background: rgba(255,255,255,.06);
+        }
+        .hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+        .form-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+        .form-foot small { color: var(--muted); font-size: 0.85rem; }
+        .contact-form .btn { cursor: pointer; }
+        .contact-form .btn[disabled] { opacity: .6; cursor: default; transform: none; }
+        .form-status { margin-top: 18px; padding: 14px 18px; border-radius: 12px; font-size: 0.95rem; display: none; }
+        .form-status.ok { display: block; background: rgba(46, 204, 113, .12); border: 1px solid rgba(46, 204, 113, .4); color: #d8ffe6; }
+        .form-status.err { display: block; background: rgba(255, 82, 82, .12); border: 1px solid rgba(255, 82, 82, .4); color: #ffe0e0; }
+        @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+        /* Guests (bottom gallery) */
+        .guests { background: var(--bg-2); overflow: hidden; }
+        .guests::before {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(800px 420px at 20% 10%, rgba(43,124,245,.16), transparent 60%),
+                        radial-gradient(700px 400px at 90% 100%, rgba(43,124,245,.12), transparent 60%);
+        }
+        .guests-mark {
+            position: absolute; right: -0.05em; top: 28px; z-index: 0; pointer-events: none;
+            font-family: var(--font-head); font-weight: 900; font-size: clamp(6rem, 18vw, 16rem);
+            line-height: 1; letter-spacing: -0.03em; text-transform: uppercase;
+            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.07);
+        }
+        .guests .wrap { position: relative; z-index: 1; }
+        .guests-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+        .guest-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 24px; margin-top: 52px; }
+        .guest-card {
+            position: relative; border-radius: 24px; overflow: hidden; isolation: isolate;
+            background: var(--bg-3); border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 40px 90px rgba(0,0,0,.5), 0 0 0 1px rgba(43,124,245,.08);
+        }
+        .guest-card::before {
+            content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            background: linear-gradient(180deg, rgba(8,13,24,.08) 0%, rgba(8,13,24,0) 35%, rgba(8,13,24,.94) 100%);
+        }
+        .guest-card .frame {
+            position: absolute; inset: 16px; z-index: 2; pointer-events: none; border-radius: 16px;
+            border: 1px solid rgba(255,255,255,.14); transition: border-color .4s ease, inset .4s ease;
+        }
+        .guest-card .frame::before, .guest-card .frame::after {
+            content: ''; position: absolute; width: 26px; height: 26px; border-color: var(--blue); border-style: solid;
+        }
+        .guest-card .frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; border-top-left-radius: 16px; }
+        .guest-card .frame::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-bottom-right-radius: 16px; }
+        .guest-card:hover .frame { border-color: rgba(43,124,245,.55); }
+        .guest-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 1s cubic-bezier(.2,.7,.2,1), filter .6s ease;
+            filter: saturate(1.02);
+        }
+        .guest-card:hover img { transform: scale(1.05); }
+        .guest-card.feature { min-height: 520px; }
+        .guest-card.feature img { object-position: 50% 42%; }
+        .guest-card.side { min-height: 520px; }
+        .guest-card.side img { object-position: 50% 35%; }
+        .guest-card .tag {
+            position: absolute; top: 30px; left: 30px; z-index: 3;
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-head); font-size: 0.64rem; font-weight: 800;
+            letter-spacing: 0.24em; text-transform: uppercase;
+            background: rgba(8,13,24,.7); border: 1px solid rgba(255,255,255,.16); color: #fff;
+            backdrop-filter: blur(8px); padding: 9px 14px; border-radius: 999px;
+        }
+        .guest-card .tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 12px var(--blue); }
+        .guest-card .cap { position: absolute; left: 34px; right: 34px; bottom: 32px; z-index: 3; }
+        .guest-card .cap::before { content: ''; display: block; width: 44px; height: 3px; background: var(--blue); margin-bottom: 14px; border-radius: 2px; }
+        .guest-card .cap h3 { font-size: 1.45rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.02em; }
+        .guest-card .cap p { color: var(--silver); font-size: 0.95rem; margin-top: 6px; max-width: 46ch; }
+        .guests-foot {
+            margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 30px;
+            font-family: var(--font-head); font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.26em; text-transform: uppercase; color: var(--silver);
+        }
+        .guests-foot span::before { content: '•'; color: var(--blue); margin-right: 14px; }
+        .guests-foot span:first-child::before { content: none; }
+
+        @media (max-width: 1024px) { .price-list { grid-template-columns: 1fr; max-width: 520px; } }
+        @media (max-width: 900px) {
+            .guest-grid { grid-template-columns: 1fr; }
+            .guest-card.feature, .guest-card.side { min-height: 0; }
+            .guest-card.feature img { aspect-ratio: 8/7; }
+            .guest-card.side img { aspect-ratio: 4/3; }
+            .guests-mark { top: 8px; }
+        }
+        @media (max-width: 560px) {
+            .guest-card .cap { left: 24px; right: 24px; bottom: 24px; }
+            .guest-card .tag { top: 22px; left: 22px; }
+            .guest-card .frame { inset: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="wrap header-inner">
+            <a href="#top" class="brand" aria-label="Expert Talk with Edgar">
+                <img src="images/expert-talk/logo.jpg" alt="Expert Talk with Edgar logo">
+                <span class="brand-text"><b>Expert Talk</b><small>with Edgar</small></span>
+            </a>
+            <nav class="nav" aria-label="Page">
+                <a href="#about">Overview</a>
+                <a href="#focus">Program</a>
+                <a href="#reach">Distribution</a>
+                <a href="#packages">Packages</a>
+                <a href="#guests">Guests</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a href="#contact" class="btn btn-blue">Partner With Us</a>
+        </div>
+    </header>
+
+    <main id="top">
+
+        <!-- Page 1: Cover -->
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="wrap hero-copy">
+                    <img class="hero-logo" src="images/expert-talk/logo.jpg" alt="Expert Talk with Edgar">
+                    <div class="hero-kicker"><b>Horizon TV</b></div>
+                    <h1>Sponsorship &amp; <em>Partnership Proposal</em></h1>
+                    <p>A weekly prime-time platform connecting trusted experts with the Armenian community.</p>
+                    <div class="hero-actions">
+                        <a href="#packages" class="btn btn-blue">View Packages</a>
+                        <a href="#guests" class="btn btn-ghost">Meet the Guests</a>
+                    </div>
+                    <div class="hero-tags">
+                        <span>Insight</span><span>Experience</span><span>Solutions</span>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="images/expert-talk/edgar-portrait.jpg" alt="Edgar Ayvazyan, host of Expert Talk">
+                    <div class="hero-badge"><i></i> Horizon TV &nbsp;·&nbsp; Prime Time</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 2: A weekly platform built for trust -->
+        <section id="about">
+            <div class="wrap about-grid">
+                <div class="about-photo reveal">
+                    <img src="images/expert-talk/edgar-portrait.jpg" alt="Edgar Ayvazyan">
+                    <div class="name"><b>Edgar Ayvazyan</b><span>Executive Producer, Media &amp; PR Strategist</span></div>
+                </div>
+                <div class="about-copy reveal">
+                    <div class="eyebrow">02</div>
+                    <h2 class="section-title">A weekly platform <span>built for trust</span></h2>
+                    <p>Expert Talk with Edgar is a weekly Horizon TV prime-time program featuring trusted experts in healthcare, law, business, and community services.</p>
+                    <ul class="checks">
+                        <li>Trusted guests from healthcare, law, business, and community services</li>
+                        <li>Real-world issues affecting Armenians in Los Angeles.</li>
+                        <li>Stronger professional and cultural connections between Armenia and the diaspora.</li>
+                    </ul>
+                    <p>Hosted by <strong>Edgar Ayvazyan</strong>, Executive Producer, Media &amp; PR Strategist, and a producer of high-profile Armenian-American medical magazines, awards, and entertainment productions.</p>
+                    <div class="note">Full episodes remain available uncut on Horizon TV's YouTube channel.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 3: Program focus -->
+        <section class="pillars" id="focus">
+            <div class="wrap">
+                <div class="reveal">
+                    <div class="eyebrow">Program Focus</div>
+                    <h2 class="section-title">Three content pillars <span>with lasting relevance</span></h2>
+                </div>
+                <div class="pillar-grid">
+                    <div class="pillar reveal">
+                        <div class="num">01</div>
+                        <h3>Medical &amp; Healthcare</h3>
+                        <ul>
+                            <li>Access to trusted professionals</li>
+                            <li>Medical tourism connections</li>
+                            <li>Healthcare services and technology</li>
+                            <li>Mental health and psychology.</li>
+                        </ul>
+                    </div>
+                    <div class="pillar reveal">
+                        <div class="num">02</div>
+                        <h3>Law &amp; Business</h3>
+                        <ul>
+                            <li>Immigration and residency</li>
+                            <li>Business formation and investment</li>
+                            <li>Real estate transactions</li>
+                            <li>Labor and employment law.</li>
+                        </ul>
+                    </div>
+                    <div class="pillar reveal">
+                        <div class="num">03</div>
+                        <h3>Community Education</h3>
+                        <ul>
+                            <li>Trust between experts and community</li>
+                            <li>Accessible, practical information</li>
+                            <li>Education and empowerment</li>
+                            <li>Armenia-diaspora connection.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 4: Distribution -->
+        <section id="reach">
+            <div class="wrap">
+                <div class="reveal">
+                    <div class="eyebrow">Distribution</div>
+                    <h2 class="section-title">One conversation becomes <span>a complete media campaign</span></h2>
+                </div>
+                <div class="dist-grid">
+                    <div class="dist reveal">
+                        <div class="k">Prime Time</div>
+                        <h3>Weekly Horizon TV broadcast</h3>
+                        <p>Full-length expert interviews reach viewers in a trusted television environment.</p>
+                    </div>
+                    <div class="dist reveal">
+                        <div class="k">Full Episodes</div>
+                        <h3>YouTube &amp; Facebook</h3>
+                        <p>Complete interviews remain searchable, shareable, and available on demand.</p>
+                    </div>
+                    <div class="dist reveal">
+                        <div class="k">Short Form</div>
+                        <h3>Reels, clips &amp; stories</h3>
+                        <p>Highlights extend reach through Horizon TV and Edgar's Instagram and Facebook pages.</p>
+                    </div>
+                </div>
+                <div class="formula reveal">
+                    <span>Broadcast credibility</span><b>+</b>
+                    <span>Long-form authority</span><b>+</b>
+                    <span>Social-media reach</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pages 5 & 6: Packages -->
+        <section class="packages" id="packages">
+            <div class="wrap">
+                <div class="reveal">
+                    <div class="eyebrow">Sponsorship Proposal</div>
+                    <h2 class="section-title">Partnership <span>packages</span></h2>
+                </div>
+                <div class="pkg-grid pkg-grid-2">
+                    <div class="pkg featured reveal">
+                        <div class="ribbon">Premier</div>
+                        <div class="k">Premier Partnership</div>
+                        <h3>General Sponsor</h3>
+                        <div class="price">$9,000</div>
+                        <div class="meta">3 months &nbsp;|&nbsp; 12 episodes</div>
+                        <p>A full-funnel media partnership combining repeated television exposure, expert positioning, social distribution, and original content production.</p>
+                        <div class="k inc">What's Included</div>
+                        <ul>
+                            <li>Three guest appearances (one per month) in 30-minute, in-studio episodes of Expert Talk.</li>
+                            <li>Behind-the-scenes stories and photos shared across Horizon TV and Edgar's social media pages.</li>
+                            <li>The full episodes will air six times on Horizon TV and be shared on Facebook and Horizon TV's YouTube channel.</li>
+                            <li>3 professionally edited highlight reels from the episodes, shared across Horizon TV and Edgar's social media pages.</li>
+                            <li>One professionally shot and edited 30 second TV commercial, filmed at the client's location.</li>
+                            <li>15 commercial spots daily on Horizon TV for 3 months.</li>
+                            <li>One professionally filmed and edited 1 minute reel featuring Edgar at the client's location.</li>
+                            <li>6 Instagram Story reposts of the client's content shared across Horizon TV and Edgar's social media pages.</li>
+                        </ul>
+                    </div>
+                    <div class="pkg reveal">
+                        <div class="k">Three-Month Visibility</div>
+                        <h3>Sponsor Package</h3>
+                        <div class="price">$6,000</div>
+                        <div class="meta">3 months</div>
+                        <p>A strong visibility package for organizations that want an expert appearance, sustained TV frequency, and cross-platform distribution.</p>
+                        <div class="k inc">What's Included</div>
+                        <ul>
+                            <li>One featured guest appearance in a 30-minute in-studio episode of Expert Talk.</li>
+                            <li>Behind-the-scenes stories and photos shared across Horizon TV and Edgar's social media pages.</li>
+                            <li>The full episode will air three times on Horizon TV and be shared on Facebook and Horizon TV's YouTube channel.</li>
+                            <li>9 commercial spots daily on Horizon TV for 3 months.</li>
+                            <li>1 professionally edited highlight reels from the episode, shared across Horizon TV and Edgar's social media pages.</li>
+                            <li>3 Instagram Story reposts of the client's content shared across Horizon TV and Edgar's social media pages.</li>
+                        </ul>
+                        <p class="ideal">Ideal for organizations seeking a featured expert appearance, sustained TV visibility, and ongoing cross-platform promotion.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 7: Closing -->
+        <section class="cta" id="connect">
+            <div class="wrap reveal">
+                <img src="images/expert-talk/logo.jpg" alt="Expert Talk with Edgar">
+                <h2>Connect expertise <br>with community</h2>
+                <p>A long-term media platform connecting healthcare, legal, and business communities across Los Angeles, Armenia, and the Armenian diaspora.</p>
+                <div class="price-list">
+                    <div class="price-row hi"><span>General Sponsor</span><b>$9,000</b></div>
+                    <div class="price-row"><span>Sponsor</span><b>$6,000</b></div>
+                    <div class="price-row"><span>Guest Interview</span><b>$1,500</b></div>
+                </div>
+                <div class="hero-tags">
+                    <span>Horizon TV Prime Time</span><span>YouTube</span><span>Facebook</span><span>Instagram</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact" id="contact">
+            <div class="wrap contact-grid">
+                <div class="contact-info reveal">
+                    <div class="eyebrow">Contact</div>
+                    <h2 class="section-title">Let's <span>talk</span></h2>
+                    <p>Interested in sponsoring the show or joining Edgar as a guest? Send a message and we'll get back to you.</p>
+                    <a class="contact-email" href="mailto:Edgarayvazyann@gmail.com">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                        Edgarayvazyann@gmail.com
+                    </a>
+                </div>
+                <form class="contact-form reveal" id="contact-form" novalidate>
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="cf-name">Name</label>
+                            <input id="cf-name" name="name" type="text" placeholder="Your full name" required autocomplete="name">
+                        </div>
+                        <div class="field">
+                            <label for="cf-email">Email</label>
+                            <input id="cf-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="cf-phone">Phone</label>
+                            <input id="cf-phone" name="phone" type="tel" placeholder="Optional" autocomplete="tel">
+                        </div>
+                        <div class="field">
+                            <label for="cf-interest">I'm interested in</label>
+                            <select id="cf-interest" name="interest">
+                                <option value="General Sponsor ($9,000)">General Sponsor · $9,000</option>
+                                <option value="Sponsor ($6,000)">Sponsor · $6,000</option>
+                                <option value="Guest Interview ($1,500)">Guest Interview · $1,500</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="cf-message">Message</label>
+                        <textarea id="cf-message" name="message" placeholder="Tell us about your organization and what you have in mind." required></textarea>
+                    </div>
+                    <div class="hp" aria-hidden="true">
+                        <label>Company<input name="company" type="text" tabindex="-1" autocomplete="off"></label>
+                    </div>
+                    <div class="form-foot">
+                        <small>Messages go directly to Edgarayvazyann@gmail.com</small>
+                        <button type="submit" class="btn btn-blue">Send Message</button>
+                    </div>
+                    <div class="form-status" id="contact-status" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Guests -->
+        <section class="guests" id="guests">
+            <div class="guests-mark" aria-hidden="true">Guests</div>
+            <div class="wrap">
+                <div class="guests-head reveal">
+                    <div>
+                        <div class="eyebrow">Our Guests</div>
+                        <h2 class="section-title">In the studio <span>with Edgar</span></h2>
+                    </div>
+                    <p class="lead">Trusted guests from healthcare, law, business, and community services.</p>
+                </div>
+
+                <div class="guest-grid">
+                    <figure class="guest-card feature reveal">
+                        <span class="tag"><i></i>In the Studio</span>
+                        <span class="frame"></span>
+                        <img src="images/expert-talk/studio-2.jpg" alt="Edgar and a guest at the Expert Talk studio table">
+                        <figcaption class="cap">
+                            <h3>Expert Talk with Edgar</h3>
+                            <p>Horizon TV prime time</p>
+                        </figcaption>
+                    </figure>
+                    <figure class="guest-card side reveal">
+                        <span class="tag"><i></i>Behind the Scenes</span>
+                        <span class="frame"></span>
+                        <img src="images/expert-talk/studio-1.jpg" alt="Edgar and his guest before recording">
+                        <figcaption class="cap">
+                            <h3>Behind the Scenes</h3>
+                            <p>Stories and photos shared across Horizon TV and Edgar's social media pages.</p>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="guests-foot reveal">
+                    <span>Insight</span><span>Experience</span><span>Solutions</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="wrap footer-inner">
+            <div><b>Expert Talk with Edgar</b> &nbsp;·&nbsp; Sponsorship Proposal</div>
+            <div class="footer-links">
+                <a href="#packages">Packages</a>
+                <a href="#guests">Guests</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div><b>Horizon TV</b></div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var els = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+                });
+            }, { threshold: 0.12 });
+            els.forEach(function (e) { io.observe(e); });
+        })();
+        (function () {
+            var form = document.getElementById('contact-form');
+            if (!form) return;
+            var status = document.getElementById('contact-status');
+            var btn = form.querySelector('button[type="submit"]');
+            var TO = 'Edgarayvazyann@gmail.com';
+
+            function show(kind, text) { status.className = 'form-status ' + kind; status.textContent = text; }
+            function data() {
+                var d = {};
+                ['name', 'email', 'phone', 'interest', 'message', 'company'].forEach(function (k) {
+                    var el = form.elements[k]; d[k] = el ? el.value.trim() : '';
+                });
+                return d;
+            }
+            function mailtoFallback(d) {
+                var subject = 'Expert Talk inquiry: ' + (d.interest || 'General') + ' - ' + d.name;
+                var body = 'Name: ' + d.name + '\nEmail: ' + d.email + '\nPhone: ' + (d.phone || '-') +
+                           '\nInterest: ' + (d.interest || '-') + '\n\n' + d.message;
+                window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var d = data();
+                if (!d.name || !d.email || !d.message) { show('err', 'Please fill in your name, email and message.'); return; }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { show('err', 'Please enter a valid email address.'); return; }
+                btn.disabled = true; btn.textContent = 'Sending…'; status.className = 'form-status';
+
+                fetch('/api/expert-talk/contact', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d)
+                }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+                .then(function (res) {
+                    if (res.ok && res.j.success && res.j.delivered) {
+                        show('ok', 'Thank you! Your message has been sent. Edgar will be in touch soon.');
+                        form.reset();
+                    } else {
+                        // Server could not deliver: hand off to the visitor's email app instead.
+                        show('ok', 'Opening your email app to send this to ' + TO + '.');
+                        mailtoFallback(d);
+                    }
+                }).catch(function () {
+                    show('ok', 'Opening your email app to send this to ' + TO + '.');
+                    mailtoFallback(d);
+                }).finally(function () { btn.disabled = false; btn.textContent = 'Send Message'; });
+            });
+        })();
+    </script>
+</body>
+</html>
